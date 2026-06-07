@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico del Ecosistema Emprendedor de Lima · ANDE Fase 1</title>
+<meta name="description" content="Diagnóstico ANDE Fase 1 del ecosistema emprendedor de Lima, Perú. Score 65/100, nivel En Desarrollo. 30 indicadores, 7 dominios, radar interactivo.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --primary:#1a1f2e; --secondary:#3d4455; --muted:#5c6272; --border:#d3d6dd;
+    --accent:#2d3a52; --accent2:#3f5277; --danger:#8b3a3a; --good:#3c6e57; --warn:#9a7b2e;
+    --bg:#f7f8fa; --card:#ffffff;
+    --serif:'Crimson Pro',Georgia,serif; --sans:'Barlow',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--primary);line-height:1.6;font-size:17px}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* Header */
+  header.hero{background:linear-gradient(135deg,#1a1f2e 0%,#2d3a52 100%);color:#fff;padding:64px 0 56px}
+  .hero .wrap{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px}
+  .hero-eyebrow{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#9fb0cc;font-weight:600;margin-bottom:12px}
+  .hero h1{font-family:var(--serif);font-size:46px;line-height:1.08;font-weight:700;margin-bottom:10px}
+  .hero .sub{font-family:var(--serif);font-size:22px;font-style:italic;color:#c7d2e4}
+  .scorebox{text-align:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:22px 30px;backdrop-filter:blur(4px)}
+  .scorebox .num{font-family:var(--serif);font-size:60px;font-weight:700;line-height:1}
+  .scorebox .den{font-size:20px;color:#9fb0cc}
+  .scorebox .badge{margin-top:8px;display:inline-block;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:#c7d2e4;color:#1a1f2e;padding:4px 12px;border-radius:20px}
+
+  /* Quick stats bar */
+  .stats{background:var(--primary);color:#cdd4e0;border-top:1px solid rgba(255,255,255,.08)}
+  .stats .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:18px 24px;justify-content:space-between}
+  .stat{flex:1;min-width:160px;padding:6px 10px}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#7f8aa3}
+  .stat .v{font-size:18px;font-weight:600;color:#fff;font-family:var(--serif)}
+
+  /* Nav */
+  nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+  nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px 24px}
+  nav.toc a{white-space:nowrap;font-size:14px;font-weight:500;color:var(--secondary);padding:7px 14px;border-radius:8px}
+  nav.toc a:hover{background:var(--bg);text-decoration:none;color:var(--primary)}
+
+  section{padding:54px 0}
+  section:nth-child(even){background:var(--card)}
+  h2{font-family:var(--serif);font-size:32px;font-weight:700;margin-bottom:8px}
+  .lead{color:var(--muted);font-size:18px;max-width:760px;margin-bottom:34px}
+  h3{font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 6px}
+
+  /* Radar + domains layout */
+  .radar-grid{display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:center}
+  .radar-chart{flex:0 0 auto}
+  svg .axis-num{font-family:var(--sans);font-size:13px;font-weight:600;fill:#fff;pointer-events:none}
+  svg .pt{cursor:pointer;transition:r .15s}
+  svg .pt:hover{opacity:.85}
+  .dom-list{display:flex;flex-direction:column;gap:8px;min-width:300px}
+  .dom-row{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;transition:.15s}
+  .dom-row:hover,.dom-row.active{border-color:var(--accent2);box-shadow:0 2px 10px rgba(45,58,82,.10)}
+  .dom-row.active{background:#f0f3f8}
+  .dom-dot{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .dom-dot.bn{background:var(--danger)}
+  .dom-meta{flex:1}
+  .dom-meta .n{font-weight:600;font-size:16px}
+  .dom-meta .s{font-size:13px;color:var(--muted)}
+  .dom-bar{width:74px;height:6px;border-radius:3px;background:#e4e7ee;overflow:hidden;flex-shrink:0}
+  .dom-bar i{display:block;height:100%;background:var(--accent2)}
+  .dom-bar i.bn{background:var(--danger)}
+  .legend{display:flex;gap:24px;justify-content:center;margin-top:26px;flex-wrap:wrap;font-size:14px;color:var(--secondary)}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .legend .ln{width:18px;height:3px;background:var(--accent2)}
+  .legend .rc{width:14px;height:14px;border:2px solid var(--danger);border-radius:50%}
+
+  /* Domain detail panel */
+  #domDetail{margin-top:32px;border:1px solid var(--border);border-left:5px solid var(--accent2);border-radius:10px;background:var(--card);padding:24px 28px;display:none}
+  #domDetail.show{display:block;animation:fade .25s ease}
+  #domDetail.bn{border-left-color:var(--danger)}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  #domDetail .dh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+  #domDetail .dh .sc{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--accent)}
+  #domDetail .dh .sc.bn{color:var(--danger)}
+  #domDetail .tag{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:3px 10px;border-radius:20px}
+  .tag.green{background:#e3efe9;color:var(--good)} .tag.yellow{background:#f5eed8;color:var(--warn)} .tag.red{background:#f2e2e2;color:var(--danger)}
+  .ind-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font-size:13px;background:var(--bg);border:1px solid var(--border);border-radius:18px;padding:4px 12px}
+  .chip b{color:var(--accent)}
+
+  /* Pattern */
+  .pattern-grid{display:flex;gap:20px;flex-wrap:wrap}
+  .pcard{flex:1;min-width:240px;border:1px solid var(--border);border-radius:12px;padding:22px;background:var(--card)}
+  .pcard .big{font-family:var(--serif);font-size:40px;font-weight:700;color:var(--accent)}
+  .pcard .lbl{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .verdict{margin-top:20px;padding:16px 20px;background:#f0f3f8;border-radius:10px;font-size:16px}
+
+  /* Cards grid (strengths/challenges) */
+  .toggle{display:inline-flex;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:26px}
+  .toggle button{border:0;background:var(--card);padding:10px 22px;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--muted);cursor:pointer}
+  .toggle button.active{background:var(--accent);color:#fff}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .card{border:1px solid var(--border);border-radius:12px;padding:22px;background:var(--card)}
+  .card.chal{border-left:4px solid var(--danger)}
+  .card.str{border-left:4px solid var(--good)}
+  .card h3{font-size:18px;margin-bottom:8px}
+  .card p{font-size:15px;color:var(--secondary)}
+
+  /* Recommendations */
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+  .filterbar button{border:1px solid var(--border);background:var(--card);padding:8px 16px;border-radius:20px;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--secondary);cursor:pointer}
+  .filterbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .rec{border:1px solid var(--border);border-radius:12px;background:var(--card);margin-bottom:14px;overflow:hidden}
+  .rec-head{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer}
+  .rec-num{width:32px;height:32px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+  .rec-title{flex:1;font-weight:600;font-size:17px}
+  .pri{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:4px 10px;border-radius:6px}
+  .pri.alta{background:#f2e2e2;color:var(--danger)} .pri.media{background:#f5eed8;color:var(--warn)} .pri.baja{background:#e9ecf2;color:var(--muted)}
+  .rec-dom{font-size:13px;color:var(--muted);min-width:120px;text-align:right}
+  .rec-body{padding:0 22px 20px 68px;display:none;font-size:15px;color:var(--secondary)}
+  .rec.open .rec-body{display:block}
+  .rec-body ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .rec-body li{margin:6px 0;font-size:14px}
+  .rec-body li b{color:var(--primary)}
+  .rec .chev{transition:.2s;color:var(--muted)}
+  .rec.open .chev{transform:rotate(180deg)}
+
+  /* Indicators table */
+  .ind-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+  .ind-filter button{border:1px solid var(--border);background:var(--card);padding:6px 14px;border-radius:18px;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--secondary);cursor:pointer}
+  .ind-filter button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:14px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--border)}
+  th{background:#eef1f6;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.03em;color:var(--secondary);cursor:pointer;user-select:none}
+  tr:last-child td{border-bottom:0}
+  td.score{font-weight:700;font-family:var(--serif);font-size:16px}
+  .sdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .muted{color:var(--muted);font-size:13px}
+
+  footer{background:var(--primary);color:#aeb6c6;padding:40px 0;font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+  footer b{color:#fff;font-family:var(--serif);font-size:18px}
+  .disc{font-size:12px;color:#7f8aa3;max-width:620px;margin-top:14px;line-height:1.6}
+
+  /* Radar tooltip */
+  #rtip{position:fixed;z-index:99;background:var(--primary);color:#fff;padding:8px 12px;border-radius:8px;font-size:13px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:220px}
+  #rtip b{font-family:var(--serif);font-size:15px}
+  @media(max-width:640px){.hero h1{font-size:34px}.hero .wrap{align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="hero-eyebrow">ANDE Ecosystem Diagnostic Toolkit · Fase 1</div>
+      <h1>Ecosistema Emprendedor de Lima</h1>
+      <div class="sub">Lima Metropolitana, Perú · Junio 2026</div>
+    </div>
+    <div class="scorebox">
+      <div><span class="num">65</span><span class="den">/100</span></div>
+      <div class="badge">En Desarrollo</div>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="k">Población</div><div class="v">10.9 M</div></div>
+    <div class="stat"><div class="k">Cuello de botella</div><div class="v">Financiamiento (58)</div></div>
+    <div class="stat"><div class="k">Patrón C–R</div><div class="v">68 / 62 · Efectivo</div></div>
+    <div class="stat"><div class="k">Generación</div><div class="v">Gen 1 → 2</div></div>
+    <div class="stat"><div class="k">Indicadores</div><div class="v">30 · 7 dominios</div></div>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#resumen">Resumen</a>
+    <a href="#radar">Radar</a>
+    <a href="#patron">Madurez</a>
+    <a href="#fortalezas">Fortalezas y retos</a>
+    <a href="#recos">Recomendaciones</a>
+    <a href="#indicadores">Indicadores</a>
+    <a href="#actores">Actores</a>
+  </div>
+</nav>
+
+<!-- RESUMEN -->
+<section id="resumen">
+  <div class="wrap">
+    <h2>El ecosistema en una mirada</h2>
+    <p class="lead">Lima concentra la actividad emprendedora del Perú y funciona como la puerta de entrada de casi todo el capital de riesgo, el talento y la investigación del país. Construyó condiciones sólidas, pero todavía no activa el ciclo que lo volvería autosostenible.</p>
+    <div class="cards">
+      <div class="card"><h3>Condiciones sólidas</h3><p>Servicios de apoyo maduros (74), capital humano abundante (72) y una infraestructura digital entre las mejores de la región. Nueve universidades operan ecosistemas de emprendimiento estructurados.</p></div>
+      <div class="card"><h3>El capital es el techo</h3><p>Entre 78% y 97% de la inversión es extranjera y el mayor fondo local maneja apenas US$26M. Sin un ciclo de exits que devuelva capital y experiencia, el reciclaje emprendedor no arranca.</p></div>
+      <div class="card"><h3>En transición</h3><p>Lima cierra la Generación 1 (ya tiene fundadores exitosos) pero aún no aparece la Generación 2, donde esos fundadores regresan como ángeles y mentores. Ese salto es la tarea de los próximos dos años.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RADAR -->
+<section id="radar">
+  <div class="wrap">
+    <h2>Radar de los 7 dominios</h2>
+    <p class="lead">Pasa el cursor sobre cada punto o haz clic en un dominio para ver su análisis y sus indicadores. La distancia entre dominios es estrecha (de 58 a 74): un ecosistema equilibrado, sin debilidades catastróficas.</p>
+    <div class="radar-grid">
+      <div class="radar-chart">
+        <svg width="440" height="420" viewBox="0 0 440 420" id="radarSvg">
+          <g transform="translate(10,10)">
+            <circle cx="210" cy="200" r="150" fill="none" stroke="#dfe2e9" stroke-width="1"/>
+            <circle cx="210" cy="200" r="112" fill="none" stroke="#e6e9ef" stroke-width="1" stroke-dasharray="2,3"/>
+            <circle cx="210" cy="200" r="75" fill="none" stroke="#e6e9ef" stroke-width="1" stroke-dasharray="2,3"/>
+            <circle cx="210" cy="200" r="37" fill="none" stroke="#e6e9ef" stroke-width="1" stroke-dasharray="2,3"/>
+            <circle cx="210" cy="200" r="90" fill="none" stroke="#a7afc0" stroke-width="1.3" stroke-dasharray="5,4"/>
+            <line x1="210" y1="200" x2="210" y2="50" stroke="#d3d6dd"/>
+            <line x1="210" y1="200" x2="327" y2="107" stroke="#d3d6dd"/>
+            <line x1="210" y1="200" x2="356" y2="233" stroke="#d3d6dd"/>
+            <line x1="210" y1="200" x2="275" y2="335" stroke="#d3d6dd"/>
+            <line x1="210" y1="200" x2="145" y2="335" stroke="#d3d6dd"/>
+            <line x1="210" y1="200" x2="64" y2="233" stroke="#d3d6dd"/>
+            <line x1="210" y1="200" x2="93" y2="107" stroke="#d3d6dd"/>
+            <polygon points="210,112 278,146 301,221 258,300 163,297 112,222 134,139" fill="rgba(45,58,82,.16)" stroke="#2d3a52" stroke-width="2"/>
+            <!-- points injected by JS -->
+            <g id="pts"></g>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><span class="ln"></span>Ecosistema</span>
+          <span><span class="ln" style="background:#a7afc0;height:1px;border-top:1px dashed #a7afc0"></span>Referencia (60)</span>
+          <span><span class="rc"></span>Cuello de botella</span>
+        </div>
+      </div>
+      <div class="dom-list" id="domList"></div>
+    </div>
+    <div id="domDetail"></div>
+  </div>
+</section>
+
+<!-- PATRON / MADUREZ -->
+<section id="patron">
+  <div class="wrap">
+    <h2>Madurez y patrón Condición–Resultado</h2>
+    <p class="lead">El modelo ANDE separa lo que el ecosistema <em>tiene</em> (condiciones) de lo que <em>produce</em> (resultados). Ambos promedios superan 50, lo que clasifica a Lima como un ecosistema efectivo.</p>
+    <div class="pattern-grid">
+      <div class="pcard"><div class="lbl">Condiciones</div><div class="big">68</div><div class="muted">Política · Servicios · Capital Humano · I+D</div></div>
+      <div class="pcard"><div class="lbl">Resultados</div><div class="big">62</div><div class="muted">Financiamiento · Cultura · Mercados</div></div>
+      <div class="pcard"><div class="lbl">Nivel de madurez</div><div class="big" style="font-size:30px;padding-top:8px">En Desarrollo</div><div class="muted">Generación 1 → 2 (Cukier &amp; Kon)</div></div>
+    </div>
+    <div class="verdict"><b>Ecosistema efectivo, con resultados que van por detrás de las condiciones.</b> Lima ya invirtió en la base (universidades, incubadoras, conectividad) y empieza a recoger frutos, pero el financiamiento aún no alcanza el nivel que esa base permitiría. La brecha es de maduración y de conexión, no de carencia.</div>
+  </div>
+</section>
+
+<!-- FORTALEZAS Y RETOS -->
+<section id="fortalezas">
+  <div class="wrap">
+    <h2>Fortalezas y retos</h2>
+    <div class="toggle">
+      <button id="btnStr" class="active" onclick="showSet('str')">Fortalezas</button>
+      <button id="btnChal" onclick="showSet('chal')">Retos</button>
+    </div>
+    <div class="cards" id="setStr"></div>
+    <div class="cards" id="setChal" style="display:none"></div>
+  </div>
+</section>
+
+<!-- RECOMENDACIONES -->
+<section id="recos">
+  <div class="wrap">
+    <h2>Recomendaciones</h2>
+    <p class="lead">Siete intervenciones coherentes con la etapa En Desarrollo del ecosistema (Tabla 4.3 de ANDE). Filtra por prioridad y haz clic para ver acción, actores y alcance esperado.</p>
+    <div class="filterbar" id="recFilter">
+      <button class="active" data-p="all">Todas</button>
+      <button data-p="alta">Alta</button>
+      <button data-p="media">Media</button>
+      <button data-p="baja">Baja</button>
+    </div>
+    <div id="recList"></div>
+  </div>
+</section>
+
+<!-- INDICADORES -->
+<section id="indicadores">
+  <div class="wrap">
+    <h2>Los 30 indicadores</h2>
+    <p class="lead">Cada indicador se puntúa de 0 a 100 según la rúbrica ANDE. Filtra por dominio o haz clic en los encabezados para ordenar.</p>
+    <div class="ind-filter" id="indFilter"></div>
+    <table id="indTable">
+      <thead><tr>
+        <th data-k="id">ID</th><th data-k="name">Indicador</th><th data-k="dom">Dominio</th>
+        <th data-k="value">Valor</th><th data-k="score">Score</th><th data-k="source">Fuente</th>
+      </tr></thead>
+      <tbody id="indBody"></tbody>
+    </table>
+    <p class="muted" style="margin-top:14px">Los valores marcados (est.) son estimaciones; los marcados (?) no se verificaron con fuentes recientes. Los indicadores de financiamiento (F1–F5) provienen de PECAP y prensa, y probablemente subestiman la actividad real frente a Crunchbase o LAVCA.</p>
+  </div>
+</section>
+
+<!-- ACTORES -->
+<section id="actores">
+  <div class="wrap">
+    <h2>Actores del ecosistema</h2>
+    <p class="lead">Mapa de los actores identificados, clasificados por la taxonomía ANDE de cinco tipos.</p>
+    <div class="cards" id="actorCards"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b>ANDE</b> · Aspen Network of Development Entrepreneurs<br>
+      Diagnóstico Fase 1 · Lima, Perú · Junio 2026
+      <div class="disc">Diagnóstico basado en 30 indicadores de fuentes públicas (INEI, INDECOPI, PECAP, SUNEDU, SCImago, Ookla, GEM Perú-ESAN, ProInnóvate, entre otras). Los datos reflejan la información más reciente disponible y pueden actualizarse. Este análisis tiene fines informativos y corresponde a la Fase 1 de la metodología; conviene validarlo con una Fase 2 de entrevistas a actores clave. Contenido bajo licencia Creative Commons Attribution 4.0 (CC BY 4.0).</div>
+    </div>
+  </div>
+</footer>
+
+<div id="rtip"></div>
+
+<script>
+/* ---------- DATA ---------- */
+const DOM = [
+  {n:"Política",full:"Política y Regulación",s:59,band:"yellow",pt:[210,112],
+   txt:"El Estado peruano construyó un aparato de apoyo a la innovación activo, pero dejó pendiente la arquitectura fiscal que las startups necesitan en sus primeros años. ProInnóvate coordina los programas nacionales y CONCYTEC administra la Ley 30309 (deducción de hasta 240% en I+D, vigente a 2028). El vacío: no existe un régimen tributario diferenciado para startups ni incentivos a la inversión ángel.",
+   inds:["P1","P2","P3"]},
+  {n:"Financiamiento",full:"Financiamiento",s:58,band:"yellow",bn:true,pt:[278,146],
+   txt:"El acceso a capital es la restricción que define el techo del ecosistema, y su problema es estructural antes que de volumen. Entre 78% y 97% del capital es extranjero, el mayor fondo local (Salkantay Ventures) maneja US$26M, y no hay un ciclo de salidas: los exits de Culqi y Joinnus fueron absorciones de Credicorp, sin IPOs ni unicornio. Sin exits que liberen capital y mentores, el reciclaje no arranca.",
+   inds:["F1","F2","F3","F4","F5","F6"]},
+  {n:"Cultura",full:"Cultura",s:62,band:"green",pt:[301,221],
+   txt:"Fuerte en intención y comunidad, frágil en confianza. Perú tiene una de las tasas de actividad emprendedora más altas del mundo (uno de cada cuatro adultos) y meetups mensuales activos (Python Perú, GDG Lima, Startup Grind), además de eventos como la Perú Venture Capital Conference (+1,200 asistentes). El contrapeso es la baja confianza interpersonal, que limita la colaboración densa.",
+   inds:["C1","C2","C3","C4","C5"]},
+  {n:"Servicios",full:"Servicios de Apoyo",s:74,band:"green",pt:[258,300],
+   txt:"El activo más maduro del ecosistema. Red densa de incubadoras universitarias (CIDE-PUCP opera desde 1995, más Emprende UP, StartUPC, InnovaUL, Bioincuba), aceleradoras verificables (UTEC Ventures, Endeavor Perú), cerca de 40-50 coworkings y banda ancha fija de ~250 Mbps, entre las mejores de América Latina. El reto ahora es escalar y especializar esta capa por sector.",
+   inds:["S1","S2","S3","S4","S5"]},
+  {n:"Capital Humano",full:"Capital Humano",s:72,band:"green",pt:[163,297],
+   txt:"El segundo pilar de Lima. Nueve universidades con programas de emprendimiento (PUCP, U. del Pacífico, UTEC con alianzas MIT/Harvard, UPC, ESAN), bootcamps con buena colocación (Laboratoria ~77%, Le Wagon ~92%) y 80.5% de hogares conectados. La tensión: el país necesita ~80,000 profesionales tech y arrastra un déficit de ~17,000.",
+   inds:["H1","H2","H3","H4","H5"]},
+  {n:"Mercados",full:"Mercados",s:67,band:"green",pt:[112,222],
+   txt:"Especialización nítida y, a la vez, concentración de riesgo. Fintech domina: 85% de la inversión de 2024 y +237 empresas, con Yape (14-20M usuarios). Alrededor crecen e-commerce, proptech, foodtech, edtech y logística. Globant, NTT Data y la banca digital refuerzan demanda y talento. Diversificar hacia agrotech y healthtech reduciría la fragilidad.",
+   inds:["M1","M2","M3"]},
+  {n:"I+D",full:"I+D e Innovación",s:65,band:"green",pt:[134,139],
+   txt:"La investigación vive casi por completo en Lima, pero rara vez llega al mercado. UNMSM (952 documentos Scopus) y PUCP lideran la producción científica, y 2025 marcó un récord de 1,050 patentes, de las que las universidades concentran el 78%. El problema: la innovación nace del mundo académico y poco del empresarial. El puente de transferencia tecnológica es la tarea pendiente.",
+   inds:["I1","I2","I3"]}
+];
+
+const IND = [
+  {id:"P1",dom:"Política",name:"Días para constituir empresa",value:"1-15 días",score:60,source:"SUNARP/SID-SUNARP, MEF (2024-25)"},
+  {id:"P2",dom:"Política",name:"Régimen fiscal startups",value:"Sin régimen; Ley 30309 I+D+i",score:50,source:"SUNAT, CONCYTEC (2024)"},
+  {id:"P3",dom:"Política",name:"Programas públicos activos",value:"4+ articulados",score:68,source:"ProInnóvate, StartUp Perú, COFIDE (2024-26)"},
+  {id:"F1",dom:"Financiamiento",name:"Inversión total 3 años",value:"~US$160-190M",score:68,source:"PECAP, Gestión (2022-25)"},
+  {id:"F2",dom:"Financiamiento",name:"Rondas anuales",value:"~33/año",score:70,source:"PECAP, LAVCA (2024)"},
+  {id:"F3",dom:"Financiamiento",name:"VCs locales",value:"4 con sede en Lima",score:48,source:"Gestión, LatamList (2023-25)"},
+  {id:"F4",dom:"Financiamiento",name:"Ángeles activos",value:"5 redes formales",score:48,source:"Emprende UP, PECAP (2024)"},
+  {id:"F5",dom:"Financiamiento",name:"Exits",value:"2-3, sin IPOs",score:42,source:"Gestión, Credicorp (2018-24)"},
+  {id:"F6",dom:"Financiamiento",name:"Capital semilla público",value:"StartUp Perú + COFIDE FCEI",score:72,source:"ProInnóvate, COFIDE, CAF (2025)"},
+  {id:"C1",dom:"Cultura",name:"Meetups",value:"4-7+ mensuales",score:62,source:"Python Perú, GDG Lima (2025)"},
+  {id:"C2",dom:"Cultura",name:"Eventos anuales",value:"6-8 mayores",score:58,source:"PECAP, ULima, Techstars (2025)"},
+  {id:"C3",dom:"Cultura",name:"Medios especializados",value:"5+ activos",score:68,source:"Startupeable, PQS, Gestión (2025-26)"},
+  {id:"C4",dom:"Cultura",name:"Comunidades online",value:"3-4 grandes",score:62,source:"LinkedIn, ProInnóvate (2025-26)"},
+  {id:"C5",dom:"Cultura",name:"Confianza social",value:"TEA 22.4%; confianza baja",score:62,source:"Latinobarómetro, GEM Perú-ESAN"},
+  {id:"S1",dom:"Servicios",name:"Aceleradoras",value:"4-5 estructuradas",score:62,source:"Gestión, UTEC, Endeavor (2024-25)"},
+  {id:"S2",dom:"Servicios",name:"Incubadoras",value:"7-8 activas",score:80,source:"CIDE-PUCP, Directorio ProInnóvate (2024)"},
+  {id:"S3",dom:"Servicios",name:"Coworkings",value:"~40-50 sedes",score:82,source:"Gestión, Coworker (2024-25)"},
+  {id:"S4",dom:"Servicios",name:"Mentores",value:"Cientos; +3,000 vía red global",score:55,source:"Endeavor, Founder Institute (2025)"},
+  {id:"S5",dom:"Servicios",name:"Velocidad internet",value:"~220-252 Mbps (est.)",score:92,source:"Ookla Speedtest (2025-26)"},
+  {id:"H1",dom:"Capital Humano",name:"Universidades con emprendimiento",value:"9+",score:85,source:"Institucionales, ProInnóvate (2024-25)"},
+  {id:"H2",dom:"Capital Humano",name:"Graduados STEM",value:"Decenas de miles/año (est.)",score:65,source:"INEI, MINEDU, SUNEDU (2023)"},
+  {id:"H3",dom:"Capital Humano",name:"Bootcamps",value:"4-5 activos",score:65,source:"Le Wagon, Laboratoria (2024-25)"},
+  {id:"H4",dom:"Capital Humano",name:"Talento tech",value:"~60,000+ nacional (est.)",score:68,source:"OIT, ManpowerGroup, Coursera (2025)"},
+  {id:"H5",dom:"Capital Humano",name:"Acceso internet %",value:"80.5% (Lima Metro)",score:78,source:"INEI Informe Técnico TIC (Q2 2025)"},
+  {id:"M1",dom:"Mercados",name:"Startups activas",value:"Miles; Lima mayoría",score:68,source:"EY Fintech Index, Forbes/Rockstart (2024-25)"},
+  {id:"M2",dom:"Mercados",name:"Corporativos tech",value:"8-10 con presencia",score:60,source:"Gestión, NTT Data, Globant (2024-26)"},
+  {id:"M3",dom:"Mercados",name:"Sectores de especialización",value:"6-8; fintech dominante",score:72,source:"PECAP, EY Fintech Index (2022-25)"},
+  {id:"I1",dom:"I+D",name:"Patentes",value:"1,050 títulos 2025",score:50,source:"INDECOPI-DIN, Patenta.pe (2026)"},
+  {id:"I2",dom:"I+D",name:"Centros de investigación",value:"10+ en Lima",score:72,source:"CONCYTEC, UTEC, PUCP (2024-25)"},
+  {id:"I3",dom:"I+D",name:"Publicaciones indexadas",value:"Miles/3 años",score:72,source:"SCImago 2024-25, Scopus (2023)"}
+];
+
+const STR = [
+  {t:"Red universitaria con nueve incubadoras activas",p:"Nueve universidades operan ecosistemas de emprendimiento estructurados, varias con más de una década (CIDE-PUCP incuba desde 1995). UTEC sostiene alianzas con MIT y Harvard. Estas instituciones conectan cuatro dominios a la vez."},
+  {t:"Infraestructura digital entre las mejores de la región",p:"La banda ancha fija pasó de 65.8 Mbps (2022) a ~250 Mbps (2025), con 80.5% de hogares conectados en Lima. A esto se suman 40-50 coworkings operativos. Una base que habilita startups digitales sin fricción."},
+  {t:"Cluster fintech con masa crítica y casos de salida",p:"Fintech concentró el 85% de la inversión de 2024 y reúne +237 empresas, con Yape (14-20M usuarios). Es el único vertical que ya produjo salidas (Culqi, Joinnus) y el terreno más probable para la primera generación de recicladores."},
+  {t:"Aparato público de financiamiento en expansión",p:"StartUp Perú elevó su capital semilla a S/140,000; ProInnóvate cofinanció +7,000 proyectos con S/985M; COFIDE construye el primer fondo de fondos público (US$25M, meta US$100M). La Ley 30309 ofrece uno de los incentivos a I+D más generosos de la región."}
+];
+const CHAL = [
+  {t:"Dependencia del capital extranjero",p:"Entre 78% y 97% de la inversión es foránea y el mayor fondo local alcanza US$26M. Cuando el capital internacional se retrae, los ecosistemas sin base local de inversión son los primeros en quedarse sin oxígeno."},
+  {t:"Ciclo de exits inexistente que bloquea el reciclaje",p:"Los únicos exits relevantes fueron compras de Credicorp; no hay IPOs ni unicornio. Sin esa rotación, los casos de éxito quedan como excepciones aisladas. Es el obstáculo central para pasar de la Generación 1 a la 2."},
+  {t:"Marco regulatorio sin incentivos para etapas tempranas",p:"No existe régimen fiscal diferenciado ni incentivos a la inversión ángel; una startup tributa como cualquier empresa desde el inicio. El esfuerzo público se canaliza por subsidios concursables, que llegan a pocos."},
+  {t:"Innovación académica que no llega al mercado",p:"Las universidades concentran el 78% de las patentes y las empresas apenas el 6%. El récord de 1,050 títulos convive con una caída de cinco puestos en el Índice Global de Innovación. Falta el puente de transferencia tecnológica."}
+];
+
+const RECS = [
+  {n:1,t:"Capitalizar un fondo de coinversión público-privado con sesgo local",pri:"alta",dom:"Financiamiento",
+   body:"El cuello de botella es la escasez de capital local de riesgo, no la falta de proyectos. COFIDE ya construyó el primer fondo de fondos público; la vía más rápida es escalarlo con un esquema de coinversión que iguale los aportes de fondos privados peruanos, siguiendo el modelo del fondo Yozma de Israel.",
+   acc:"Ampliar el FCEI de COFIDE de US$25M a US$60M con matching que duplique cada dólar de fondos locales nuevos.",
+   act:"COFIDE, PECAP, CAF y BID, Salkantay Ventures y Krealo.",alc:"Elevar el capital local del 3-22% al 35% del total invertido en 24 meses."},
+  {n:2,t:"Crear un régimen fiscal y societario específico para startups",pri:"alta",dom:"Política",
+   body:"La promoción pública convive con un marco fiscal que trata a una startup igual que a cualquier negocio. Una ley de startups, como las de Chile, Colombia o Italia, fijaría reglas generales que reduzcan la fricción de las etapas tempranas.",
+   acc:"Diseñar una ley con figura societaria simplificada, diferimiento de impuestos dos años, deducción para inversión ángel y visado de talento tech.",
+   act:"PRODUCE, ProInnóvate, Congreso, PECAP y Endeavor Perú.",alc:"Proyecto de ley presentado en 12 meses; incentivos a inversión ángel vigentes en 24."},
+  {n:3,t:"Activar una red formal de ángeles desde el cluster fintech",pri:"alta",dom:"Financiamiento",
+   body:"El reciclaje no arranca solo, y el lugar más probable para sembrarlo es el cluster fintech, el único que ya produjo salidas. Convertir a los fundadores que vendieron Culqi o Joinnus en ángeles organizados crearía la generación de recicladores que falta.",
+   acc:"Lanzar un sindicato de ángeles con formación, capital de contrapartida público y pipeline curado de las incubadoras universitarias.",
+   act:"PECAP, Emprende UP y UP4angels, COFIDE, Endeavor Perú.",alc:"30 ángeles activos con 15 deals documentados en 24 meses."},
+  {n:4,t:"Construir oficinas de transferencia tecnológica universidad–startups",pri:"media",dom:"I+D",
+   body:"El 78% de las patentes nace en universidades que no las comercializan. Las oficinas de transferencia son el puente que falta entre los laboratorios de UNMSM, PUCP o UTEC y el mercado; su efectividad depende del diseño y de incentivos claros para los investigadores.",
+   acc:"Financiar oficinas de transferencia en las tres universidades más productivas, con presupuesto para prototipado y reparto de regalías.",
+   act:"CONCYTEC, PUCP, UNMSM y UTEC, ProInnóvate.",alc:"Tres oficinas operativas y 10+ spin-offs en 24-36 meses."},
+  {n:5,t:"Escalar y especializar la red de aceleración por sector",pri:"media",dom:"Servicios de Apoyo",
+   body:"Servicios de Apoyo es el dominio más fuerte; para un ecosistema En Desarrollo la consigna es escalarlo y especializarlo. Las aceleradoras son pocas frente a la densidad de incubadoras y casi ninguna se especializa por vertical.",
+   acc:"Crear dos programas de aceleración verticales (fintech y agrotech/healthtech) con cohortes anuales y conexión directa a fondos.",
+   act:"UTEC Ventures y Endeavor Perú, Credicorp o Belcorp, COFIDE.",alc:"Dos programas verticales y 40 startups aceleradas en 24 meses."},
+  {n:6,t:"Diversificar el ecosistema más allá de fintech",pri:"media",dom:"Mercados",
+   body:"La concentración del 85% de la inversión en fintech, llevada al extremo, se vuelve fragilidad. Fortalecer Mercados implica ensanchar la base sectorial a partir de las ventajas del país en agricultura, minería, pesca y turismo.",
+   acc:"Orientar parte del capital semilla y de la aceleración a verticales de la vocación económica peruana, con retos de innovación abierta.",
+   act:"ProInnóvate, gremios y grandes empresas, UNALM y UPCH.",alc:"Triplicar las startups financiadas fuera de fintech en 36 meses."},
+  {n:7,t:"Fortalecer la articulación y la confianza entre actores",pri:"baja",dom:"Cultura",
+   body:"La cultura es vigorosa, pero la baja confianza social limita la colaboración densa. Para un ecosistema En Desarrollo la cultura se mantiene; la intervención debe enfocarse en la calidad de las conexiones.",
+   acc:"Establecer una instancia de articulación periódica entre gobierno, academia, fondos y organizaciones de apoyo, con indicadores comunes.",
+   act:"PECAP o Endeavor Perú, ProInnóvate, universidades.",alc:"Mesa con reuniones trimestrales y tablero de indicadores en 18 meses."}
+];
+
+const ACTORS = [
+  {t:"Gobierno",l:"ProInnóvate (PRODUCE), StartUp Perú, CONCYTEC / PROCIENCIA, COFIDE, SUNARP, INDECOPI"},
+  {t:"Academia",l:"PUCP (CIDE, NEXUM), U. del Pacífico (Emprende UP), UPC (StartUPC), UTEC (UTEC Ventures), USIL, U. de Lima (InnovaUL), ESAN, UNMSM (1551), UPCH (Bioincuba), UNI"},
+  {t:"Organizaciones de Apoyo",l:"Endeavor Perú, Founder Institute Lima, Laboratoria, Le Wagon, Crack The Code, Comunal Coworking, Startup Grind Lima, PECAP"},
+  {t:"Sector Privado",l:"Globant, NTT Data Perú, Credicorp / Yape, Interbank, Rappi, Belcorp, Telefónica, BCP"},
+  {t:"Proveedores de Capital",l:"Salkantay Ventures, Krealo (Credicorp), UTEC Ventures, Wayra Perú (?), Angel Ventures Perú, Kayyak Ventures, UP4angels, PAD-GDE, BBCS Capital"}
+];
+
+/* ---------- RENDER ---------- */
+const scoreColor = s => s>=60?'#3c6e57':(s>=40?'#9a7b2e':'#8b3a3a');
+const bandTag = b => b==='green'?'green':(b==='yellow'?'yellow':'red');
+const bandLbl = b => b==='green'?'Bien desarrollado':(b==='yellow'?'En desarrollo':'Atención prioritaria');
+
+// radar points + dom list
+const pts = document.getElementById('pts');
+const domList = document.getElementById('domList');
+DOM.forEach((d,i)=>{
+  const [x,y]=d.pt;
+  const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.innerHTML=`<circle class="pt" cx="${x}" cy="${y}" r="14" fill="${d.bn?'#8b3a3a':'#2d3a52'}" data-i="${i}"></circle>
+    ${d.bn?`<circle cx="${x}" cy="${y}" r="20" fill="none" stroke="#8b3a3a" stroke-width="2"></circle>`:''}
+    <text class="axis-num" x="${x}" y="${y+4}" text-anchor="middle">${i+1}</text>`;
+  pts.appendChild(g);
+
+  const row=document.createElement('div');
+  row.className='dom-row';row.dataset.i=i;
+  row.innerHTML=`<div class="dom-dot ${d.bn?'bn':''}">${i+1}</div>
+    <div class="dom-meta"><div class="n">${d.full}</div><div class="s">Score ${d.s}${d.bn?' · Cuello de botella':''}</div></div>
+    <div class="dom-bar"><i class="${d.bn?'bn':''}" style="width:${d.s}%"></i></div>`;
+  row.onclick=()=>selectDom(i);
+  domList.appendChild(row);
+});
+
+function selectDom(i){
+  const d=DOM[i];
+  document.querySelectorAll('.dom-row').forEach(r=>r.classList.toggle('active',+r.dataset.i===i));
+  const det=document.getElementById('domDetail');
+  det.className='show'+(d.bn?' bn':'');
+  const chips=d.inds.map(id=>{const it=IND.find(x=>x.id===id);return `<span class="chip"><b>${it.id}</b> ${it.name} · ${it.score}</span>`}).join('');
+  det.innerHTML=`<div class="dh"><h3>${d.full}</h3><span class="sc ${d.bn?'bn':''}">${d.s}</span>
+    <span class="tag ${bandTag(d.band)}">${d.bn?'Cuello de botella':bandLbl(d.band)}</span></div>
+    <p>${d.txt}</p><div class="ind-chips">${chips}</div>`;
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+// radar hover tooltip
+const tip=document.getElementById('rtip');
+pts.addEventListener('mousemove',e=>{
+  const c=e.target.closest('.pt'); if(!c){tip.style.opacity=0;return;}
+  const d=DOM[+c.dataset.i];
+  tip.innerHTML=`<b>${d.full}</b> · ${d.s}/100${d.bn?'<br><span style="color:#e69">Cuello de botella</span>':''}`;
+  tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-10)+'px';tip.style.opacity=1;
+});
+pts.addEventListener('mouseleave',()=>tip.style.opacity=0);
+pts.addEventListener('click',e=>{const c=e.target.closest('.pt');if(c)selectDom(+c.dataset.i);});
+
+// strengths / challenges
+function card(set,cls){return set.map(x=>`<div class="card ${cls}"><h3>${x.t}</h3><p>${x.p}</p></div>`).join('')}
+document.getElementById('setStr').innerHTML=card(STR,'str');
+document.getElementById('setChal').innerHTML=card(CHAL,'chal');
+function showSet(s){
+  document.getElementById('setStr').style.display=s==='str'?'grid':'none';
+  document.getElementById('setChal').style.display=s==='chal'?'grid':'none';
+  document.getElementById('btnStr').classList.toggle('active',s==='str');
+  document.getElementById('btnChal').classList.toggle('active',s==='chal');
+}
+
+// recommendations
+const recList=document.getElementById('recList');
+function renderRecs(f='all'){
+  recList.innerHTML=RECS.filter(r=>f==='all'||r.pri===f).map(r=>`
+    <div class="rec" data-p="${r.pri}">
+      <div class="rec-head" onclick="this.parentElement.classList.toggle('open')">
+        <div class="rec-num">${r.n}</div>
+        <div class="rec-title">${r.t}</div>
+        <span class="pri ${r.pri}">${r.pri}</span>
+        <span class="rec-dom">${r.dom}</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="rec-body"><p>${r.body}</p><ul>
+        <li><b>Acción:</b> ${r.acc}</li>
+        <li><b>Actores:</b> ${r.act}</li>
+        <li><b>Alcance esperado:</b> ${r.alc}</li>
+      </ul></div>
+    </div>`).join('');
+}
+renderRecs();
+document.getElementById('recFilter').addEventListener('click',e=>{
+  if(e.target.tagName!=='BUTTON')return;
+  document.querySelectorAll('#recFilter button').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');renderRecs(e.target.dataset.p);
+});
+
+// indicators table
+const doms=[...new Set(IND.map(i=>i.dom))];
+const indFilter=document.getElementById('indFilter');
+indFilter.innerHTML=`<button class="active" data-d="all">Todos</button>`+doms.map(d=>`<button data-d="${d}">${d}</button>`).join('');
+let curDom='all',sortK='id',sortAsc=true;
+function renderInd(){
+  let rows=IND.filter(i=>curDom==='all'||i.dom===curDom);
+  rows.sort((a,b)=>{let va=a[sortK],vb=b[sortK];if(sortK==='score'){return sortAsc?va-vb:vb-va}return sortAsc?(''+va).localeCompare(vb):(''+vb).localeCompare(va)});
+  document.getElementById('indBody').innerHTML=rows.map(i=>`<tr>
+    <td><b>${i.id}</b></td><td>${i.name}</td><td>${i.dom}</td><td>${i.value}</td>
+    <td class="score" style="color:${scoreColor(i.score)}"><span class="sdot" style="background:${scoreColor(i.score)}"></span>${i.score}</td>
+    <td class="muted">${i.source}</td></tr>`).join('');
+}
+renderInd();
+indFilter.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')return;
+  document.querySelectorAll('#indFilter button').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');curDom=e.target.dataset.d;renderInd();});
+document.querySelectorAll('#indTable th').forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k;if(k===sortK)sortAsc=!sortAsc;else{sortK=k;sortAsc=true}renderInd();});
+
+// actors
+document.getElementById('actorCards').innerHTML=ACTORS.map(a=>`<div class="card"><h3>${a.t}</h3><p>${a.l}</p></div>`).join('');
+
+// open bottleneck by default
+selectDom(1);
+</script>
+</body>
+</html>
