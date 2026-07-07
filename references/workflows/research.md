@@ -1,18 +1,11 @@
 # Research Automatizado de Ecosistema
 
-## Metadata
-- **Comando:** /research
-- **Aliases:** /investigar
-- **Idioma:** bilingüe (búsquedas en español e inglés, documento en español por defecto)
-- **Versión:** 1.0
-
 ## Descripción
-Investiga un ecosistema emprendedor usando búsqueda web para generar el documento de research que alimenta al diagnóstico (`/diagnostico`). Ejecuta 8 rondas de búsqueda cubriendo los 7 dominios ANDE, integra datos nacionales del archivo de país, y produce un documento narrativo completo en `input/`.
+Investiga un ecosistema emprendedor usando búsqueda web para generar el documento de research que alimenta al workflow de diagnóstico. Ejecuta 8 rondas de búsqueda cubriendo los 7 dominios ANDE, integra datos nacionales del archivo de país, y produce un documento narrativo completo en `input/`.
 
-## Trigger
-- El usuario escribe `/research [ciudad]` o `/investigar [ciudad]`
+## Cuándo se usa
 - El usuario pide investigar un ecosistema sin traer documento de research
-- Invocado automáticamente en modo batch antes del Paso 1
+- Se ejecuta automáticamente en modo batch antes del Paso 1 del diagnóstico
 
 ## Inputs
 - **Obligatorio:** ciudad, estado/provincia, país, población de referencia
@@ -67,8 +60,8 @@ Investiga un ecosistema emprendedor usando búsqueda web para generar el documen
    a. Indicadores con dato / estimados / sin dato
    b. Fuentes: cuáles vienen del documento complementario vs web search vs usuario
    c. Alertas de calidad (F1-F5 probablemente subestimados por web search)
-   d. Modo individual → preguntar: "¿Revisar/complementar o proceder al /diagnostico?"
-   e. Modo batch → continuar automáticamente al Paso 1 del /diagnostico
+   d. Modo individual → preguntar: "¿Revisar/complementar o proceder al diagnóstico?"
+   e. Modo batch → continuar automáticamente al Paso 1 del diagnóstico
 ```
 
 ⚠️ **Calidad del research automatizado:** Los resultados de búsqueda web no reemplazan bases de datos especializadas (Crunchbase, LAVCA, PitchBook). Los indicadores de Financiamiento (F1-F5) pueden estar subestimados. En modo individual se recomienda complementar antes del diagnóstico.

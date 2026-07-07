@@ -30,7 +30,7 @@ A complete calibration produces the following artifacts:
 2. **`references/countries/[country].md`** — updated country files for the top 15-20 African ecosystems with national indicators, referencing African regional data sources.
 3. **`references/africa-benchmarks.md`** — reference document with continental percentiles for each indicator (P10, P25, P50, P75, P90) computed across the African universe.
 4. **`references/peer-cities-africa.md`** — short profiles of peer cities (Lagos, Nairobi, Cape Town, Johannesburg, Accra, Addis Ababa, Kigali, Dakar, Dar es Salaam, Kampala, Lusaka, Abidjan, Tunis, Cairo, Casablanca) with absolute counts on the 30 indicators for comparative benchmarking.
-5. **Update to `skills/diagnostico.md`** — add a decision step that selects between LATAM and African rubric based on the country of the ecosystem being diagnosed.
+5. **Update to `references/workflows/diagnostico.md`** — add a decision step that selects between LATAM and African rubric based on the country of the ecosystem being diagnosed.
 6. **Validation pack** — recomputed scores for 3-5 African ecosystems already diagnosed under the LATAM rubric, side-by-side comparison, and explanatory notes.
 
 ---
@@ -133,7 +133,7 @@ C5 requires specific treatment. Afrobarometer replaces WVS/Latinobarómetro. The
 ### Phase 6 — Publication and integration (2 weeks)
 
 1. Publish `references/rubrica-scoring-africa.md` and the supporting reference files.
-2. Update `skills/diagnostico.md` with the country-based rubric selection logic:
+2. Update `references/workflows/diagnostico.md` with the country-based rubric selection logic:
    - If country is in Africa → use `rubrica-scoring-africa.md`
    - If country is in LATAM or elsewhere → use `rubrica-scoring.md`
    - Document the selection in the report header

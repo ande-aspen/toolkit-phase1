@@ -1,49 +1,50 @@
 # Ecosystem Expert Agent
 
-Agente experto en ecosistemas emprendedores. Construido sobre la metodología ANDE y una base de conocimiento creciente.
+Agente experto en ecosistemas emprendedores para Claude Code. Construido sobre la metodología ANDE (Entrepreneurial Ecosystem Diagnostic Toolkit, 2ª ed.) y una base de conocimiento creciente.
 
-## Skills
+No hay skills ni comandos: se pide la tarea en lenguaje natural y el agente sigue el workflow correspondiente de `references/workflows/`.
 
-| Comando | Qué hace |
-|---------|----------|
-| `/diagnostico` | Diagnóstico ANDE Fase 1 completo (30 indicadores, 7 dominios, reporte, radar) |
-| `/research` | Research automatizado de ecosistema (8 rondas de búsqueda web) |
-| `/ingest` | Ingerir paper o artículo a la base de conocimiento |
-| `/ask` | Consultar la base de conocimiento |
-| `/report` | Generar reporte personalizado |
-| `/compare` | Comparar ecosistemas diagnosticados |
+## Tareas
+
+| Tarea | Ejemplo de petición |
+|-------|---------------------|
+| Diagnóstico ANDE Fase 1 | "Diagnostica Hermosillo, Sonora, México, 950,000 habitantes" |
+| Research de ecosistema | "Investiga el ecosistema de Mérida" |
+| Re-diagnóstico (v2) | "Actualiza el diagnóstico de La Paz" |
+| Ingesta a la base de conocimiento | "Agrega este paper a la base" (+ PDF/URL) |
+| Consulta a la base de conocimiento | "¿Qué dice la literatura sobre efectividad de aceleradoras en LatAm?" |
+| Reporte personalizado | "Hazme un policy brief sobre financiamiento en ciudades intermedias" |
+| Comparativo | "Compara los ecosistemas del norte de México" |
+| Consolidado multi-ciudad | "Consolida los 10 diagnósticos de México en un reporte" |
 
 ## Quick Start
 
 **Diagnosticar un ecosistema:**
 ```
-/research Hermosillo, Sonora, México, 950000
-→ genera documento de research en input/
-/diagnostico
-→ parsea, puntúa, genera reporte y radar en output/
+"Investiga y diagnostica Hermosillo, Sonora, México, 950,000 habitantes"
+→ research en input/ → CSV + reporte de 8 secciones + radar en output/
 ```
 
-**Alimentar la base de conocimiento:**
+**Verificar el scoring de un CSV:**
 ```
-/ingest [path al PDF o texto del paper]
-→ procesa, clasifica, indexa en knowledge/
-```
-
-**Consultar:**
-```
-/ask ¿Qué dice la literatura sobre efectividad de aceleradoras en LatAm?
+python3 scripts/score.py "output/[ciudad]_[pais] - indicators.csv"
 ```
 
 ## Estructura
 
 ```
 ande-toolkit/
-├── CLAUDE.md              ← Cerebro del agente
-├── skills/                ← Definiciones de skills (1 archivo por skill)
+├── CLAUDE.md              ← Cerebro del agente: identidad, flujos de trabajo, recursos
+├── references/            ← Recursos del diagnóstico
+│   ├── workflows/         ← Proceso detallado de cada tarea (1 archivo por tarea)
+│   ├── rubrica-scoring.md ← Benchmarks para los 30 indicadores
+│   ├── reporte-template.md← Las 8 secciones del reporte
+│   └── countries/         ← Indicadores nacionales por país
 ├── knowledge/             ← Base de conocimiento creciente (papers, índice)
-├── references/            ← Recursos del diagnóstico ANDE
-├── guides/                ← Guías de humanización (ES/EN)
-├── drive/                 ← Metodología ANDE y 30 referencias master
+├── drive/                 ← Metodología ANDE (METODOLOGIA_EN.md = canónica, V3.7)
+├── guides/                ← Humanización (ES/EN) y calibración África
+├── docs/                  ← Guías de scoring y template CSV
+├── scripts/               ← score.py: cálculo determinista y validación de CSVs
 ├── input/                 ← Documentos de research por ciudad
 └── output/                ← Entregables generados
 ```

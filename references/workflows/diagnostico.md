@@ -1,23 +1,16 @@
 # Diagnóstico ANDE Fase 1
 
-## Metadata
-- **Comando:** /diagnostico
-- **Aliases:** /diagnosis
-- **Idioma:** bilingüe (español por defecto, inglés si se solicita)
-- **Versión:** 1.0
-
 ## Descripción
 Ejecuta un diagnóstico completo de ecosistema emprendedor siguiendo la metodología ANDE Fase 1. Parsea datos de research, extrae y puntúa 30 indicadores en 7 dominios, y genera un reporte profesional de 8 secciones con visualización radar.
 
-## Trigger
-- El usuario escribe `/diagnostico [ciudad]` o `/diagnosis [city]`
+## Cuándo se usa
 - El usuario pide un diagnóstico de ecosistema, evaluación de ecosistema, o assessment
 - El usuario entrega un documento de research y pide procesarlo
 
 ## Inputs
 - Documento de research (en `input/`, pegado en chat, CSV, tabla, texto libre, o combinación)
 - Metadata: ciudad, estado/provincia, país, población de referencia
-- Para research automatizado previo, usar `/research` primero
+- Si no hay documento de research, ejecutar primero el workflow de research (`references/workflows/research.md`)
 
 ## Formatos de Input Aceptados
 
@@ -62,12 +55,12 @@ Formato esperado:
 4. Para cada ciudad en la lista:
    a. Buscar documento complementario en input/ ([ciudad].pdf, .md, .txt)
       → si existe, leerlo primero y usarlo como base
-   b. /research: Research web (8 rondas, enfocado en gaps) → guardar en input/
+   b. Research web (workflow research, 8 rondas, enfocado en gaps) → guardar en input/
    c. Paso 1: Parsear, validar, scoring → guardar CSV en output/
       - Indicadores sin dato → estimación conservadora automática (15-25)
       - No detenerse por gaps ni inconsistencias — marcar y continuar
    d. Paso 2: Reporte + Radar → guardar en output/
-      - Leer METODOLOGIA y REFERENCES_MASTER para cada ciudad
+      - Leer METODOLOGIA_EN y los papers relevantes de knowledge/ para cada ciudad
         (las recomendaciones dependen del perfil específico)
       - Humanizar cada reporte
 5. Al terminar TODAS las ciudades:
@@ -82,6 +75,37 @@ Formato esperado:
 - `output/[ciudad]_[pais] - phase1.md` (reporte)
 - `output/[ciudad]_[pais] - radar.html` (visualización)
 
+### Modo re-diagnóstico (v2)
+
+Se activa cuando el usuario pide actualizar, refrescar o re-evaluar una ciudad ya diagnosticada. La metodología recomienda repetirlo a los 24-36 meses; también aplica cuando hay evidencia nueva significativa.
+
+```
+1. LEER LA LÍNEA BASE COMPLETA antes de investigar:
+   CSV v1 + reporte v1 + documento de research v1
+   → Si el documento de research v1 no existe en input/ (ej: Villahermosa),
+     reconstruir la línea base desde el reporte v1 y el CSV v1: los actores,
+     programas y datos citados ahí son el punto de partida del research enfocado
+2. RESEARCH ENFOCADO: verificar cada actor/dato de la v1 (¿sigue activo?)
+   y buscar lo que la v1 no encontró
+3. TABLA DE DELTAS OBLIGATORIA — para cada indicador que cambió:
+   | ID | Valor v1 | Score v1 | Valor v2 | Score v2 | Tipo de cambio |
+   Tipo de cambio ∈ {EVIDENCIA (existía, no se había encontrado),
+                     REAL (cambió en el terreno),
+                     RÚBRICA (re-aplicación de criterios)}
+   Ubicación: en la sección 8 del reporte v2, inmediatamente después de la
+   tabla de 30 indicadores. En el CSV v2, anotar el tipo de cambio en `notes`
+4. El resumen ejecutivo de la v2 ABRE declarando la descomposición:
+   "El score pasó de X a Y; Z puntos provienen de mejor evidencia y
+   W de cambios reales en el ecosistema"
+5. NAMING: sufijo _v2 en los tres entregables. La v1 NUNCA se borra ni
+   se sobrescribe (es la línea base para medir cambio real en el tiempo)
+6. Congelar criterios: usar la MISMA rúbrica y los mismos criterios de
+   vigencia que la v1; si la rúbrica cambió entre versiones, señalarlo
+   como tipo de cambio RÚBRICA, no como mejora del ecosistema
+```
+
+Precedentes: Nairobi v2 (deltas por realineación con evidencia, +1 punto) y La Paz v2 (+21 puntos, casi todo EVIDENCIA — actores que existían y la v1 no encontró).
+
 ---
 
 ## Proceso
@@ -90,7 +114,7 @@ Formato esperado:
 
 ```
 1. RECIBIR INPUT:
-   - Si viene del /research → el documento ya está en input/, la metadata ya se conoce
+   - Si viene del workflow de research → el documento ya está en input/, la metadata ya se conoce
    - Si viene del usuario → documento de research en input/ (MD, TXT, PDF),
      pegado en chat, CSV, tabla en chat, texto libre, o combinación
    - Recibir metadata si no se tiene: ciudad, estado, país, población de referencia
@@ -117,15 +141,26 @@ Formato esperado:
    b. Si el usuario incluyó scores → usarlos, pero señalar discrepancias >15 puntos con la rúbrica
    c. Si NO incluyó scores → aplicar rúbrica indicador por indicador
    d. Ciudades < 1M hab: ajuste por población en indicadores de conteo ANTES de puntuar
-5. CALCULAR:
+5. CALCULAR (usar scripts/score.py si hay Python disponible; si no, aplicar las fórmulas de la sección Cálculos):
    a. Score por dominio = promedio de indicadores del dominio
    b. Score global = promedio de los 7 dominios
-   c. Nivel de madurez (0-25: Naciente, 26-45: Emergente, 46-65: En Desarrollo, 66-100: Autosostenible)
-   d. Cuello de botella = dominio con score más bajo
-   e. Patrón Condición-Resultado
+   c. Score ajustado por cuello de botella = media geométrica de los 7 dominios
+      (ver sección Cálculos). Si la brecha con el global es >8 puntos → señalar
+      que los dominios fuertes enmascaran la severidad del cuello de botella
+   d. Rango de incertidumbre: recalcular el score global excluyendo los
+      indicadores marcados (est.) → reportar "global X (sin estimados: Y),
+      Z% del score basado en estimaciones"
+   e. Nivel de madurez propuesto por score (0-25: Naciente, 26-45: Emergente,
+      46-65: En Desarrollo, 66-100: Autosostenible)
+   f. VALIDAR madurez contra marcadores estructurales (ver sección
+      Validación Estructural de Madurez). Si score y estructura divergen →
+      reportar ambos, no promediar
+   g. Cuello de botella = dominio con score más bajo
+   h. Patrón Condición-Resultado
 6. ENTREGAR:
    a. Tabla resumen con semáforos
-   b. Score global, madurez, cuello de botella, patrón C-R
+   b. Score global (+ ajustado por cuello de botella + rango sin estimados),
+      madurez (score y validación estructural), cuello de botella, patrón C-R
    c. Discrepancias o alertas
    d. CSV → guardar en output/[ciudad]_[pais] - indicators.csv
    e. Modo individual → esperar aprobación del usuario antes del Paso 2
@@ -140,8 +175,9 @@ Formato esperado:
 1. Idioma: español por defecto. Si pide inglés → redactar todo en inglés
 2. Si hubo correcciones (modo individual), actualizar CSV
 3. Leer references/reporte-template.md → seguir estructura de 8 secciones al pie de la letra
-4. Para secciones que lo requieran: leer drive/METODOLOGIA_ES.md (o _EN.md si es inglés)
-5. Para recomendaciones: leer drive/REFERENCES_MASTER.md — usar índices por dominio y por tema para localizar extractos relevantes
+4. Para secciones que lo requieran: leer drive/METODOLOGIA_EN.md (canónica, V3.7).
+   Si el reporte es en español, usar drive/METODOLOGIA_ES.md solo como apoyo de terminología
+5. Para recomendaciones: leer knowledge/INDEX.md — usar los temas para localizar los papers relevantes en knowledge/papers/
 6. ENRIQUECER CON CONTEXTO LOCAL:
    - Releer el documento de research original (no solo el CSV)
    - Usar nombres concretos de actores, programas, startups, fondos, eventos
@@ -171,7 +207,7 @@ Formato esperado:
 ### Dominios Condición
 - **P: Política y Regulación** (3): P1 Días constituir empresa, P2 Régimen fiscal startups, P3 Programas públicos activos
 - **S: Servicios de Apoyo** (5): S1 Aceleradoras, S2 Incubadoras, S3 Coworkings, S4 Mentores, S5 Velocidad internet
-- **H: Capital Humano** (5): H1 Universidades con emprendimiento, H2 Graduados STEM, H3 Bootcamps, H4 Talento tech, H5 Acceso internet %
+- **H: Capital Humano** (5): H1 Universidades con emprendimiento, H2 Bootcamps, H3 Graduados STEM, H4 Talento tech, H5 Acceso internet %
 - **I: I+D e Innovación** (3): I1 Patentes, I2 Centros investigación, I3 Publicaciones indexadas
 
 ### Dominios Resultado
@@ -181,7 +217,7 @@ Formato esperado:
 
 ### Clasificación por Tipo de Research
 
-| Tipo | Indicadores | Comportamiento en /research |
+| Tipo | Indicadores | Comportamiento en el research |
 |------|------------|--------------------------|
 | Nacional (archivo de país) | P1, P2, H5, C5 | Pre-llenados de `references/countries/[pais].md`. No se investigan. |
 | Estimación | S5 | Default del archivo de país. Marcado `(est.)`. |
@@ -237,6 +273,19 @@ NO aplica a: F1-F6, P3, H1 (institucionales, no per cápita)
 | 🔴 | <40 + más bajo | Cuello de botella |
 | 🔴 | <40 + no más bajo | Atención prioritaria |
 
+### Score ajustado por cuello de botella
+```
+Score ajustado = (D1 × D2 × D3 × D4 × D5 × D6 × D7)^(1/7)
+```
+Media geométrica de los 7 scores de dominio (usar max(dominio, 1) si algún dominio es 0). A diferencia del promedio simple, penaliza los cuellos de botella: los dominios fuertes no compensan al débil, que es la lógica central del modelo ANDE (el dominio más débil limita al sistema). Se reporta como complemento del score global, nunca lo reemplaza. Brecha >8 puntos = los dominios fuertes enmascaran la restricción.
+
+### Rango de incertidumbre por estimaciones
+```
+% estimado = (# indicadores con (est.) / 30) × 100
+Score sin estimados = promedio recalculado excluyendo indicadores (est.)
+```
+Reportar siempre: "Score global X (sin estimados: Y). Z% de los indicadores son estimaciones." Si Z > 30%, señalar en el reporte que el score es sensible a research adicional (precedente: La Paz subió 21 puntos entre v1 y v2 solo por mejor evidencia).
+
 ### Nivel de madurez
 | Score Global | Nivel |
 |--------------|-------|
@@ -244,6 +293,22 @@ NO aplica a: F1-F6, P3, H1 (institucionales, no per cápita)
 | 26-45 | Emergente |
 | 46-65 | En Desarrollo |
 | 66-100 | Autosostenible |
+
+### Validación Estructural de Madurez
+
+El score propone el nivel; la estructura lo confirma. Después de clasificar por score, verificar los 4 marcadores estructurales (basados en las generaciones de Cukier & Kon y la Tabla 3.1 de la metodología):
+
+| # | Marcador | Evidencia que buscar en el research |
+|---|----------|-------------------------------------|
+| 1 | **Reinversión (Gen 2+)** | Emprendedores con exit/liquidez actuando como ángeles, mentores o creando fondos |
+| 2 | **Capital local activo** | Fondos locales liderando rondas (no solo coinvirtiendo con externos) |
+| 3 | **ESOs sostenibles** | Organizaciones de Apoyo con ingresos diversificados, no dependientes de un solo donante |
+| 4 | **Atracción neta** | Talento y capital entrando al ecosistema, no saliendo |
+
+Regla de validación:
+- **Autosostenible** requiere los 4 marcadores; **En Desarrollo** requiere al menos 1-2 (típicamente capital local incipiente)
+- Si el score dice un nivel y los marcadores dicen otro → **reportar ambos sin promediar**: "Score de Autosostenible (82) con estructura de En Desarrollo: el ciclo de reinversión se debilitó en 2023-2024" (caso Nairobi)
+- La divergencia es un hallazgo del diagnóstico, no un error: normalmente indica un ecosistema frágil (score alto sin estructura) o en despegue (estructura mejor que el score)
 
 ### Patrón Condición-Resultado
 ```
@@ -290,22 +355,17 @@ Etapa 4: Mercados → I+D
 
 ## Cómo Usar las Referencias
 
-Todas las referencias del diagnóstico están consolidadas en: **`drive/REFERENCES_MASTER.md`** (30 referencias, 180+ extractos, 6,600+ líneas).
-
-### Estructura de REFERENCES_MASTER.md
-1. **Índice por Dominio ANDE** (P, S, H, I, F, C, M) — Tabla que mapea extractos relevantes por dominio con autor y tema
-2. **Índice por Tema** (13 categorías) — Extractos agrupados por: Ecosystem Frameworks, Measurement, Accelerators & BDS, Financing, Culture, Policy Instruments, Growth-Oriented Entrepreneurs, Mentoring, Ecosystem Maturity, LatAm Context, Gender, AI & Technology, Case Studies
-3. **30 secciones de referencia** — Cada una con cita completa (autor, título, año, editorial) y extractos con IDs de anclaje
+La fuente de evidencia del diagnóstico es la base de conocimiento: **`knowledge/INDEX.md`** (índice semántico por 13 temas) → **`knowledge/papers/`** (30 papers con insights identificados por INS-#).
 
 ### Cómo buscar
-- **Por dominio:** Ir al índice por dominio, localizar el dominio ANDE relevante, seguir los extractos listados
-- **Por tema:** Ir al índice por tema, localizar la categoría, seguir los extractos listados
-- **Citar en reporte:** Usar formato "per Extracto 9A, Stam & Van de Ven (2021)" — el ID del extracto + autor + año
+- **Leer `knowledge/INDEX.md`** — organizado por tema con micro-resúmenes; indica exactamente qué 2-3 papers abrir según el dominio o la pregunta
+- **Abrir solo los papers relevantes** de `knowledge/papers/` — no abrir todos
+- **Citar en reporte:** autor + año; agregar el INS-# cuando se use un insight específico (ej: "Argidius (2021), INS-3")
 
 ### Regla de mínimos
-**Mínimo 3 recomendaciones deben tener respaldo de referencias.** Citar con extracto ID + autor.
+**Mínimo 3 recomendaciones deben tener respaldo de la base de conocimiento.** Citar con autor + año (+ INS-# si aplica).
 
-Adicionalmente, consultar `knowledge/INDEX.md` para papers complementarios que puedan enriquecer el análisis.
+`drive/REFERENCES_MASTER.md` es legado (mismo contenido migrado a `knowledge/papers/`): consultarlo solo para verificar un "Extracto ##" citado en reportes históricos.
 
 ---
 
@@ -320,7 +380,7 @@ Usar el campo `notes` de los indicadores Y el documento de research original —
 
 ### 2. Recomendaciones fundamentadas (Sección 7)
 - Coherentes con Tabla 4.3 (dominio × madurez)
-- Fundamentadas con METODOLOGIA + REFERENCES_MASTER.md
+- Fundamentadas con METODOLOGIA_EN + papers de knowledge/
 - Accionables: actor local específico + acción + métrica + horizonte
 - Conectar cada recomendación con actores locales identificados en el research
   (ej: no decir "crear programa de mentoría", sino "la Universidad [X] podría
@@ -373,9 +433,9 @@ Ver `references/template-radar.html` para ejemplo completo. Specs clave:
 | Rúbrica de scoring | `references/rubrica-scoring.md` | Paso 1, antes de asignar scores |
 | Template de reporte | `references/reporte-template.md` | Paso 2, antes de redactar |
 | Template radar HTML | `references/template-radar.html` | Paso 2, al generar visualización |
-| Metodología ANDE ES | `drive/METODOLOGIA_ES.md` | Paso 2, secciones 2,3,5,6,7 |
-| Metodología ANDE EN | `drive/METODOLOGIA_EN.md` | Paso 2, si output en inglés |
-| Referencias ANDE | `drive/REFERENCES_MASTER.md` | Paso 2, recomendaciones (mín. 3 extractos) |
+| Metodología ANDE (canónica) | `drive/METODOLOGIA_EN.md` | Paso 2, secciones 2,3,5,6,7 |
+| Terminología ES | `drive/METODOLOGIA_ES.md` | Paso 2, solo si el reporte es en español |
+| Base de conocimiento | `knowledge/INDEX.md` → `knowledge/papers/` | Paso 2, recomendaciones (mín. 3 con respaldo) |
 | Humanizador ES | `guides/editor-humano.md` | Paso 2, post-redacción |
 | Humanizador EN | `guides/humanizer.md` | Paso 2, si output en inglés |
 | Knowledge base | `knowledge/INDEX.md` | Paso 2, para enriquecer análisis |
@@ -388,6 +448,9 @@ Ver `references/template-radar.html` para ejemplo completo. Specs clave:
 - [ ] 8 secciones completas
 - [ ] Resumen ejecutivo: 4 párrafos, sin bullets, con footnotes
 - [ ] Tabla de evaluación con semáforos correctos
+- [ ] Score ajustado por cuello de botella reportado (y explicado si la brecha >8)
+- [ ] Rango de incertidumbre: score sin estimados + % de indicadores estimados
+- [ ] Madurez validada contra los 4 marcadores estructurales (divergencia reportada si existe)
 - [ ] Patrón Condición-Resultado identificado y explicado
 - [ ] 7 análisis de dominio: 1 párrafo estratégico cada uno (120-180 palabras)
 - [ ] Contexto local: actores, programas y startups mencionados por nombre en el análisis
@@ -395,15 +458,15 @@ Ver `references/template-radar.html` para ejemplo completo. Specs clave:
 - [ ] 4 fortalezas con títulos específicos al ecosistema
 - [ ] 4 retos con títulos que nombren el problema
 - [ ] 6-8 recomendaciones verificadas contra Tabla 4.3, conectadas con actores locales
-- [ ] Mínimo 3 recomendaciones con respaldo de REFERENCES_MASTER.md (extracto ID + autor)
+- [ ] Mínimo 3 recomendaciones con respaldo de knowledge/ (autor + año, INS-# si aplica)
 - [ ] Tabla de 30 indicadores en sección 8
 
 ### Fuentes consultadas
 - [ ] references/rubrica-scoring.md (Paso 1)
 - [ ] references/reporte-template.md (Paso 2)
 - [ ] references/template-radar.html (Paso 2)
-- [ ] drive/METODOLOGIA_ES.md o _EN.md (Secciones 2,3,5,6,7)
-- [ ] drive/REFERENCES_MASTER.md — mínimo 3 extractos para recomendaciones, citados con ID + autor
+- [ ] drive/METODOLOGIA_EN.md (Secciones 2,3,5,6,7)
+- [ ] knowledge/INDEX.md + papers — mínimo 3 recomendaciones respaldadas, citadas con autor + año
 - [ ] guides/editor-humano.md o humanizer.md (humanización)
 
 ### Estilo

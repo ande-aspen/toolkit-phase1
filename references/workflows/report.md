@@ -1,16 +1,9 @@
 # Reporte Personalizado
 
-## Metadata
-- **Comando:** /report
-- **Aliases:** /reporte
-- **Idioma:** bilingüe (según instrucción del usuario o idioma de la sesión)
-- **Versión:** 1.0
-
 ## Descripción
-Genera reportes personalizados sobre ecosistemas emprendedores según las instrucciones del usuario. No es el diagnóstico ANDE estándar (para eso usar `/diagnostico`), sino reportes de formato libre: temáticos, policy briefs, análisis sectoriales, resúmenes ejecutivos, etc. Se alimenta de la base de conocimiento, diagnósticos existentes, y datos proporcionados por el usuario.
+Genera reportes personalizados sobre ecosistemas emprendedores según las instrucciones del usuario. No es el diagnóstico ANDE estándar (para eso está `references/workflows/diagnostico.md`), sino reportes de formato libre: temáticos, policy briefs, análisis sectoriales, resúmenes ejecutivos, etc. Se alimenta de la base de conocimiento, diagnósticos existentes, y datos proporcionados por el usuario.
 
-## Trigger
-- El usuario escribe `/report` o `/reporte`
+## Cuándo se usa
 - El usuario pide un reporte, brief, análisis, o documento que no es el diagnóstico ANDE estándar
 - El usuario da instrucciones específicas sobre qué tipo de documento quiere
 
@@ -36,7 +29,7 @@ Genera reportes personalizados sobre ecosistemas emprendedores según las instru
 2. IDENTIFICAR FUENTES RELEVANTES:
    a. knowledge/INDEX.md → papers sobre el tema
    b. drive/REFERENCES_MASTER.md → si toca temas ANDE
-   c. drive/METODOLOGIA_ES.md o _EN.md → si necesita marco teórico
+   c. drive/METODOLOGIA_EN.md (canónica) → si necesita marco teórico
    d. output/ → diagnósticos existentes si el reporte los necesita
    e. input/ → documentos de research si son relevantes
    f. Datos proporcionados por el usuario en chat
@@ -71,7 +64,7 @@ Genera reportes personalizados sobre ecosistemas emprendedores según las instru
 | Índice de KB | `knowledge/INDEX.md` | Para buscar papers relevantes |
 | Papers | `knowledge/papers/*.md` | Los relevantes al tema |
 | Referencias ANDE | `drive/REFERENCES_MASTER.md` | Si el reporte toca diagnóstico |
-| Metodología | `drive/METODOLOGIA_ES.md` o `_EN.md` | Si necesita marco teórico |
+| Metodología | `drive/METODOLOGIA_EN.md` (canónica) | Si necesita marco teórico |
 | Diagnósticos | `output/*.csv`, `output/*.md` | Si usa datos de ciudades |
 | Humanizador | `guides/editor-humano.md` o `humanizer.md` | Post-redacción |
 

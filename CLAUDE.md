@@ -8,28 +8,25 @@ Opero en español por defecto. Cambio a inglés cuando el usuario escribe en ing
 
 ---
 
-## Skills
+## Flujos de Trabajo
 
-Mis capacidades están definidas en archivos dentro de `skills/`. Cada skill tiene instrucciones completas y se carga bajo demanda.
+No hay skills ni comandos que invocar: cada tarea tiene su proceso documentado en `references/workflows/`. Identifico la tarea por lo que el usuario pide en lenguaje natural, **leo el workflow completo antes de ejecutar** y sigo sus pasos. Si el usuario escribe un atajo tipo "/diagnostico", es texto normal — equivale a pedir la tarea con palabras.
 
-| Comando | Alias | Descripción | Archivo |
-|---------|-------|-------------|---------|
-| `/diagnostico` | `/diagnosis` | Diagnóstico ANDE Fase 1 completo (30 indicadores, 7 dominios, reporte 8 secciones, radar) | `skills/diagnostico.md` |
-| `/research` | `/investigar` | Research automatizado de ecosistema (8 rondas de búsqueda web) | `skills/research.md` |
-| `/ingest` | `/paper` | Ingerir paper/artículo a la base de conocimiento | `skills/ingest.md` |
-| `/ask` | `/consulta` | Consultar la base de conocimiento de forma conversacional | `skills/ask.md` |
-| `/report` | `/reporte` | Generar reporte personalizado (no diagnóstico estándar) | `skills/report.md` |
-| `/compare` | `/comparar` | Comparar ecosistemas diagnosticados | `skills/compare.md` |
-| `/consolidado` | `/consolidated`, `/multi-report` | Reporte consolidado multi-ciudad (perfiles + comparativo + metodología) | `skills/consolidado.md` |
+| Tarea | Peticiones típicas | Workflow |
+|-------|--------------------|----------|
+| Diagnóstico ANDE Fase 1 | "diagnostica [ciudad]", entrega un research para procesar, pide evaluar un ecosistema | `references/workflows/diagnostico.md` |
+| Re-diagnóstico (v2) | "actualiza/refresca [ciudad ya diagnosticada]" | sección "Modo re-diagnóstico" del mismo workflow |
+| Research de ecosistema | "investiga [ciudad]", no existe documento de research en `input/` | `references/workflows/research.md` |
+| Ingesta a la KB | "agrega/guarda este paper", entrega un PDF o URL para la base | `references/workflows/ingest.md` |
+| Consulta a la KB | preguntas sobre literatura, autores, metodología, ciudades diagnosticadas | `references/workflows/ask.md` |
+| Reporte personalizado | pide un brief, análisis temático o documento no estándar | `references/workflows/report.md` |
+| Comparativo | "compara [ciudades]", benchmark regional | `references/workflows/compare.md` |
+| Consolidado multi-ciudad | "consolida los diagnósticos", reporte regional integrado | `references/workflows/consolidado.md` |
 
-### Cómo invocar
-- El usuario escribe el comando: `/diagnostico Hermosillo`
-- O describe lo que quiere en lenguaje natural — identifico el skill relevante y leo su archivo
-- Si no hay skill que aplique, opero como experto conversacional usando mi base de conocimiento
-
-### Cómo agregar skills
-1. Crear archivo en `skills/[nombre].md` siguiendo el template en `skills/_template.md`
-2. Agregar fila a la tabla de arriba
+Reglas:
+- NUNCA ejecutar un diagnóstico, research o consolidado de memoria — leer primero el workflow y los recursos que este cite (rúbrica, template, metodología).
+- Si ninguna tarea aplica, opero como experto conversacional usando la base de conocimiento.
+- Para agregar un workflow nuevo: crear el archivo en `references/workflows/` y agregar la fila a esta tabla.
 
 ---
 
@@ -52,7 +49,7 @@ knowledge/
 
 ### Jerarquía de fuentes (de más a menos específica)
 1. `knowledge/INDEX.md` → `knowledge/papers/` — 30 papers con insights (fuente principal)
-2. `drive/METODOLOGIA_ES.md` / `METODOLOGIA_EN.md` — Toolkit ANDE oficial
+2. `drive/METODOLOGIA_EN.md` — Toolkit ANDE oficial, **versión canónica** (Second Edition V3.7, enero 2026, con Executive Summary y descripciones de figuras). `METODOLOGIA_ES.md` es un borrador anterior: usarlo solo como apoyo de terminología en español.
 3. `references/countries/` — Datos nacionales por país
 4. `drive/REFERENCES_MASTER.md` — Archivo legado (mismo contenido que knowledge/papers/ pero monolítico). Consultar solo si se necesita verificar un extracto histórico.
 5. Web search — Última opción, para datos en tiempo real
@@ -61,19 +58,21 @@ knowledge/
 
 ## Recursos Compartidos
 
-Estos archivos son usados por múltiples skills:
+Estos archivos son usados por múltiples workflows:
 
-| Recurso | Path | Skills que lo usan |
+| Recurso | Path | Workflows que lo usan |
 |---------|------|--------------------|
 | Humanizador ES | `guides/editor-humano.md` | diagnostico, report |
 | Humanizador EN | `guides/humanizer.md` | diagnostico, report |
 | Datos por país | `references/countries/[pais].md` | diagnostico, research |
 | Rúbrica de scoring | `references/rubrica-scoring.md` | diagnostico |
+| Script de scoring | `scripts/score.py` | diagnostico (Paso 1: cálculo determinista + validación del CSV) |
 | Template de reporte | `references/reporte-template.md` | diagnostico |
 | Template radar HTML | `references/template-radar.html` | diagnostico |
 | Workflow research | `references/research-workflow.md` | research |
-| Metodología ANDE ES | `drive/METODOLOGIA_ES.md` | diagnostico, ask, report |
-| Metodología ANDE EN | `drive/METODOLOGIA_EN.md` | diagnostico, ask, report |
+| Metodología ANDE (canónica, EN) | `drive/METODOLOGIA_EN.md` | diagnostico, ask, report, consolidado |
+| Terminología ES (legado) | `drive/METODOLOGIA_ES.md` | solo apoyo de terminología en reportes en español |
+| Alineación con metodología | `references/methodology-alignment.md` | diagnostico (convención de IDs, desviaciones documentadas) |
 | Índice KB | `knowledge/INDEX.md` | ask, ingest, diagnostico, report, compare |
 | Papers KB | `knowledge/papers/*.md` | ask, ingest, diagnostico, report, compare |
 | Referencias ANDE (legado) | `drive/REFERENCES_MASTER.md` | solo verificación de extractos históricos |
@@ -86,7 +85,7 @@ Estos archivos son usados por múltiples skills:
 - Basado en evidencia. Honesto sobre limitaciones y gaps de datos.
 - Sin lenguaje promocional ni optimismo forzado.
 - Sin patrones AI (ver `guides/editor-humano.md` o `guides/humanizer.md`).
-- Terminología ANDE: PEC (no SGBs), Organizaciones de Apoyo (no ESOs).
+- Terminología ANDE por idioma — en español: PEC, Organizaciones de Apoyo, articuladores; en inglés (según Toolkit V3.7): SGBs (Small and Growing Businesses), ESOs (Entrepreneurial Support Organizations), connectors. Nunca mezclar (no "SGBs" en un reporte en español ni "PEC" en uno en inglés).
 - Citar fuentes: autor y año para papers de `knowledge/papers/`, INS-# para insights específicos.
 - Datos concretos y nombres de actores locales, no generalidades.
 
@@ -97,36 +96,43 @@ Estos archivos son usados por múltiples skills:
 ```
 ande-toolkit/
 ├── CLAUDE.md                          ← Este archivo. Cerebro del agente.
-├── skills/                            ← Definiciones de skills
-│   ├── _template.md                   ← Template para crear nuevos skills
-│   ├── diagnostico.md                 ← Diagnóstico ANDE Fase 1
-│   ├── research.md                    ← Research automatizado de ecosistema
-│   ├── ingest.md                      ← Ingesta de papers a la KB
-│   ├── ask.md                         ← Consultas conversacionales a la KB
-│   ├── report.md                      ← Reportes personalizados
-│   └── compare.md                     ← Comparativo de ecosistemas
 ├── knowledge/                         ← Base de conocimiento (creciente)
 │   ├── README.md                      ← Formato, taxonomía, convenciones
 │   ├── INDEX.md                       ← Índice semántico por tema (punto de entrada)
 │   ├── papers/                        ← 30 archivos individuales por paper
 │   └── topics/                        ← Síntesis temáticas
 ├── references/                        ← Recursos del diagnóstico ANDE
+│   ├── workflows/                     ← Procesos por tarea (ver tabla Flujos de Trabajo)
+│   │   ├── diagnostico.md             ← Diagnóstico ANDE Fase 1 (+ modo batch y re-diagnóstico v2)
+│   │   ├── research.md                ← Research automatizado de ecosistema
+│   │   ├── ingest.md                  ← Ingesta de papers a la KB
+│   │   ├── ask.md                     ← Consultas conversacionales a la KB
+│   │   ├── report.md                  ← Reportes personalizados
+│   │   ├── compare.md                 ← Comparativo de ecosistemas
+│   │   └── consolidado.md             ← Reporte consolidado multi-ciudad
 │   ├── rubrica-scoring.md             ← Benchmarks para puntuar 30 indicadores
 │   ├── reporte-template.md            ← Estructura de las 8 secciones del reporte
 │   ├── template-radar.html            ← Specs del radar HTML/SVG
-│   ├── research-workflow.md           ← Workflow detallado de 8 rondas de búsqueda
+│   ├── research-workflow.md           ← Detalle de las 8 rondas de búsqueda web
+│   ├── methodology-alignment.md       ← Alineación con Toolkit V3.7 y desviaciones documentadas
 │   └── countries/                     ← Indicadores nacionales por país
+│       ├── kenya.md
 │       ├── mexico.md
 │       └── sri_lanka.md
-├── guides/                            ← Guías de humanización
+├── guides/                            ← Guías de humanización y calibración
 │   ├── editor-humano.md               ← Patrones AI a eliminar (español)
-│   └── humanizer.md                   ← Patrones AI a eliminar (inglés)
-├── drive/                             ← Metodología y referencias ANDE
-│   ├── METODOLOGIA_ES.md              ← Toolkit ANDE español
-│   ├── METODOLOGIA_EN.md              ← Toolkit ANDE inglés
+│   ├── humanizer.md                   ← Patrones AI a eliminar (inglés)
+│   └── africa-calibration-guide.md    ← Plan para calibrar la rúbrica a África (pendiente de ejecutar)
+├── drive/                             ← Metodología ANDE
+│   ├── METODOLOGIA_EN.md              ← Toolkit ANDE Second Edition V3.7 (CANÓNICA; incluye Executive Summary y descripciones de figuras)
+│   ├── METODOLOGIA_ES.md              ← Borrador anterior en español (superseded; solo terminología)
 │   └── REFERENCES_MASTER.md           ← Legado: mismo contenido migrado a knowledge/papers/
+├── scripts/                           ← Herramientas deterministas
+│   └── score.py                       ← Calcula scores (aritmético, geométrico, rango sin estimados) y valida el CSV
 ├── docs/                              ← Templates y referencias
-│   └── input_template.csv             ← Template CSV con los 30 indicadores
+│   ├── input_template.csv             ← Template CSV con los 30 indicadores
+│   ├── guia-scoring.md                ← Guía interna de scoring (español)
+│   └── scoring-guide.md               ← Guía interna de scoring (inglés)
 ├── input/                             ← Documentos de research por ciudad
 └── output/                            ← Entregables generados
 ```

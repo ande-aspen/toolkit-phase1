@@ -1,16 +1,9 @@
 # Ingesta de Papers y Artículos
 
-## Metadata
-- **Comando:** /ingest
-- **Aliases:** /paper
-- **Idioma:** bilingüe (papers se guardan en idioma original)
-- **Versión:** 1.0
-
 ## Descripción
-Procesa un paper, artículo, reporte o blog post y lo integra a la base de conocimiento (`knowledge/`). Extrae metadata, clasifica por dominios ANDE y temas, identifica insights clave, y actualiza el índice maestro. El contenido queda disponible para consultas (`/ask`) y para enriquecer reportes (`/diagnostico`, `/report`).
+Procesa un paper, artículo, reporte o blog post y lo integra a la base de conocimiento (`knowledge/`). Extrae metadata, clasifica por dominios ANDE y temas, identifica insights clave, y actualiza el índice maestro. El contenido queda disponible para consultas a la KB y para enriquecer diagnósticos y reportes.
 
-## Trigger
-- El usuario escribe `/ingest` o `/paper`
+## Cuándo se usa
 - El usuario dice "agrega este paper", "integra este artículo", "guarda esta referencia"
 - El usuario proporciona un PDF, URL, o texto de un paper y pide procesarlo
 
@@ -102,7 +95,7 @@ Procesa un paper, artículo, reporte o blog post y lo integra a la base de conoc
    - Número de insights extraídos
    - Conexiones identificadas con otros papers
    - Path del archivo creado
-   - Sugerencia: "Usa /ask para consultar sobre este paper o temas relacionados"
+   - Sugerencia: "Puedes consultarme sobre este paper o temas relacionados"
 ```
 
 ---

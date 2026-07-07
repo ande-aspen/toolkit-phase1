@@ -4,9 +4,9 @@ Base de conocimiento creciente sobre ecosistemas emprendedores. Cada paper, art�
 
 ## Cómo funciona
 
-1. **Ingerir:** Usar `/ingest` o `/paper` para agregar un nuevo documento
-2. **Consultar:** Usar `/ask` o `/consulta` para hacer preguntas sobre el contenido
-3. **Usar en reportes:** Los skills `/diagnostico` y `/report` buscan aquí para enriquecer análisis
+1. **Ingerir:** pedir que se agregue un paper (workflow `references/workflows/ingest.md`)
+2. **Consultar:** hacer preguntas sobre el contenido (workflow `references/workflows/ask.md`)
+3. **Usar en reportes:** los workflows de diagnóstico y reporte buscan aquí para enriquecer análisis
 
 ## Estructura
 
@@ -24,8 +24,8 @@ knowledge/
 
 - `drive/REFERENCES_MASTER.md` contiene 30 referencias específicas del diagnóstico ANDE, con IDs de extracto (1A, 9B, etc.) referenciados en reportes existentes. Es estable, no crece.
 - `knowledge/` es el sistema nuevo y creciente para todo tipo de papers.
-- `/ask` busca en ambas fuentes.
-- `/ingest` puede cross-referenciar con extractos de REFERENCES_MASTER.md.
+- Las consultas a la KB buscan en ambas fuentes.
+- La ingesta puede cross-referenciar con extractos de REFERENCES_MASTER.md.
 
 ---
 

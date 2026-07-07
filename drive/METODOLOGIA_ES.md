@@ -1,3 +1,5 @@
+> **⚠️ SUPERSEDED — solo referencia legada.** La metodología canónica de este repo es `drive/METODOLOGIA_EN.md` (convertida del draft final "ENG FInal draft - Toolkit_V3.7", enero 2026). Este archivo en español corresponde a un borrador anterior y contiene diferencias conocidas contra la versión final (numeración de tablas del cap. 4, sección "Sector Privado" vs. "Corporations and Large Enterprises" en cap. 5, resumen ejecutivo ausente, descripciones de figuras ausentes). Trabajar siempre desde la versión EN; usar este archivo únicamente como apoyo de terminología en español (PEC = SGBs, articuladores = connectors).
+
 Segunda edición — Noviembre, 2025
 
 # 1. Introducción

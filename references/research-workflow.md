@@ -74,13 +74,14 @@ Al terminar: crear `references/countries/[pais].md` con los datos encontrados.
 
 ### Ronda 1: Ecosistema + Inversión
 
-**Cubre:** F1, F2, F3, F4, F5, M1, M3
+**Cubre:** F1, F2, F3, F4, F5, M1, M3 (+ lente de género en M1)
 
 Queries:
 ```
 "[ciudad] startup ecosystem investment venture capital [year]"
 "[ciudad] startups funding rounds exits [year]"
 "[ciudad] ecosistema emprendedor inversión startups [year]"
+"[ciudad] mujeres emprendedoras startups women founders"
 ```
 
 **Qué extraer:**
@@ -91,6 +92,8 @@ Queries:
 - F5: Exits (adquisiciones, IPOs) con nombre, comprador, año
 - M1: Conteo de startups activas mencionadas
 - M3: Sectores donde hay concentración (3+ startups)
+- Lente de género: startups lideradas por mujeres identificadas por nombre → notes de M1.
+  No cambia el score; alimenta la sección de Actores y el párrafo de contexto del reporte.
 
 **Indicadores difíciles:**
 - F1-F5 suelen estar detrás de paywalls (Crunchbase, PitchBook, LAVCA). Los resultados web capturan principalmente las rondas más grandes que fueron cubiertas por prensa. Marcar como `(est.)` y notar que probablemente está subestimado.
@@ -136,6 +139,7 @@ Queries:
 **Qué extraer:**
 - P3: Programas gubernamentales activos (federal con presencia local + estatal + municipal). Verificar convocatorias en últimos 24 meses.
 - F6: Programas de capital semilla público (NAFIN, banca de desarrollo, fondos concursables). Incluir ticket promedio si se menciona.
+- Lente de género: programas públicos dirigidos a mujeres emprendedoras → notes de P3.
 
 **Nota:** No contar INADEM (cerrado 2019). Verificar que programas federales mencionados tengan operación en la ciudad específica.
 
@@ -154,13 +158,13 @@ Queries:
 
 **Qué extraer:**
 - H1: Universidades con: carrera de emprendimiento, incubadora universitaria, OTT, o programa formal de emprendimiento estudiantil. Listar por nombre.
-- H2: Graduados STEM anuales. Si solo hay dato nacional (ANUIES), prorratear por matrícula estatal vs nacional.
-- H3: Bootcamps tech (programación, data science, UX). Listar nombres y especialidad.
+- H2: Bootcamps tech (programación, data science, UX). Listar nombres y especialidad.
+- H3: Graduados STEM anuales. Si solo hay dato nacional (ANUIES), prorratear por matrícula estatal vs nacional.
 - H4: Talento tech. No se puede consultar LinkedIn directamente. Estimar basándose en: población de ciudad, presencia de tech corporates, reportes que mencionen pool de talento.
 - S4: Mentores en plataformas (Endeavor, MicroMentor, programas de aceleradoras). Generalmente es estimación.
 
-**Métodos de prorrateo (H2, H4):**
-- H2: Graduados STEM nacionales × (matrícula universitaria estatal / matrícula nacional)
+**Métodos de prorrateo (H3, H4):**
+- H3: Graduados STEM nacionales × (matrícula universitaria estatal / matrícula nacional)
 - H4: Si no hay dato directo, estimar como ~2-5% de la población económicamente activa con skills tech, ajustado por presencia de universidades y corporativos tech
 
 ---
@@ -181,6 +185,11 @@ Queries:
 - C2: Eventos anuales (conferencias, demo days, hackathons, startup weekends). Contar los de últimos 12 meses.
 - C3: Medios especializados (blogs, podcasts, newsletters, YouTube). Criterio: publicación en últimos 30 días.
 - C4: Comunidades online (LinkedIn, Facebook, Slack, Discord, WhatsApp). Criterio: ≥1 post/mes en últimos 3 meses.
+- Evidencia local para C5: referentes visibles y casos de éxito locales (fundadores reconocidos,
+  cobertura mediática de emprendedores de la ciudad, historias de exit contadas públicamente)
+  → notes de C5. El score de C5 sigue siendo el dato nacional del archivo de país, pero esta
+  evidencia local es la que alimenta el análisis del dominio Cultura (ver rúbrica, advertencia C5).
+- Lente de género: comunidades o eventos de mujeres emprendedoras → notes de C1/C2.
 
 **Vigencia es clave aquí.** Muchos meetups y medios aparecen en búsqueda pero están inactivos. Si no hay evidencia de actividad reciente → marcar con `(?)` o no contar.
 
@@ -388,7 +397,7 @@ Usar para: I1 (patentes), F1 (inversión como proxy)
 ```
 Valor local = Valor nacional × (Matrícula estatal / Matrícula nacional)
 ```
-Usar para: H2 (graduados STEM), I3 (publicaciones)
+Usar para: H3 (graduados STEM), I3 (publicaciones)
 
 ### Nota sobre prorrateo
 El prorrateo es el último recurso. Siempre preferir dato directo > dato estatal > prorrateo. Marcar todo prorrateo con `(est.)` y explicar método en notes.

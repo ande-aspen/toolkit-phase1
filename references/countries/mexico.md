@@ -72,7 +72,7 @@ Usar como estimación con marca (est.). Adecuado para operaciones digitales est�
 - **CONAHCyT (antes CONACYT):** Consejo Nacional de Humanidades, Ciencias y Tecnologías — financiamiento a investigación
 - **INADEM:** Instituto Nacional del Emprendedor — **cerrado en 2019**, no contar como activo
 
-### Sistema Educativo (para H2 — Graduados STEM)
+### Sistema Educativo (para H3 — Graduados STEM)
 - **Fuente principal:** ANUIES (Asociación Nacional de Universidades e Instituciones de Educación Superior)
 - **Método de prorrateo:** Dato nacional de graduados STEM / proporción de matrícula estatal vs nacional
 - **Disciplinas STEM:** Ingeniería, manufactura, computación, ciencias exactas
@@ -85,7 +85,7 @@ Usar como estimación con marca (est.). Adecuado para operaciones digitales est�
 ### Fuentes de Datos Recurrentes
 | Indicador | Fuente nacional | Cómo localizar |
 |-----------|----------------|----------------|
-| H2 (STEM) | ANUIES | anuies.mx → Anuarios estadísticos |
+| H3 (STEM) | ANUIES | anuies.mx → Anuarios estadísticos |
 | H5 (Internet %) | INEGI ENDUTIH | inegi.org.mx → encuestas |
 | I1 (Patentes) | IMPI | gob.mx/impi → estadísticas |
 | I3 (Publicaciones) | SCImago / Scopus | scimagojr.com → por institución |

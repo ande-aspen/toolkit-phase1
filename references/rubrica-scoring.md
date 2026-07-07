@@ -252,6 +252,7 @@ Proxy de la disposición cultural hacia el emprendimiento. Fuentes: GEM (actitud
 
 **Tipo de benchmark:** Cualitativo con datos cuantitativos de referencia
 **Nota:** Si no hay datos GEM o WVS para la ciudad, usar datos nacionales con nota (est.)
+**Advertencia multi-ciudad:** C5 es un dato nacional/estatal — en diagnósticos de varias ciudades del mismo país el indicador es una constante que no discrimina entre ecosistemas (las 10 ciudades mexicanas comparten el mismo 18% de Latinobarómetro). Documentar SIEMPRE en `notes` la evidencia local complementaria (referentes visibles, casos de éxito documentados, cobertura mediática de emprendedores locales) capturada en la Ronda 5 del research; esa evidencia no mueve el score de C5, pero alimenta el análisis del dominio Cultura y la sección de Fortalezas.
 
 ---
 
@@ -358,7 +359,25 @@ Instituciones de educación superior con al menos uno de: programa académico en
 
 ---
 
-### H2 · Graduados STEM anuales
+### H2 · Bootcamps tech activos
+
+> **Nota de alineación (2026-07):** los IDs H2 y H3 se intercambiaron para coincidir con el Anexo B.1 de la metodología final (Toolkit V3.7: H2 = bootcamps, H3 = graduados STEM). Los CSVs generados antes de julio 2026 usan la convención anterior (H2 = STEM, H3 = bootcamps).
+
+Programas de formación intensiva en programación, diseño UX, data science, etc. Incluir presenciales y remotos con presencia local (oficina o comunidad).
+
+| Score | Rango | Referencia |
+|-------|-------|------------|
+| 80-100 | 5+ bootcamps activos | Hub tech consolidado |
+| 60-79 | 3-4 bootcamps | Buena oferta de formación alternativa |
+| 40-59 | 1-2 bootcamps | Oferta básica, generalmente 1 presencial + 1 remoto |
+| 20-39 | Solo bootcamps remotos sin presencia local | Acceso solo digital, sin comunidad local |
+| 0-19 | 0 bootcamps | Sin formación tech intensiva |
+
+**Tipo de benchmark:** Absoluto
+
+---
+
+### H3 · Graduados STEM anuales
 
 Egresados anuales de carreras STEM (Ciencia, Tecnología, Ingeniería, Matemáticas) de universidades en el ecosistema.
 
@@ -372,22 +391,6 @@ Egresados anuales de carreras STEM (Ciencia, Tecnología, Ingeniería, Matemáti
 
 **Tipo de benchmark:** Absoluto
 **Nota:** Usar datos de la autoridad educativa nacional (ANUIES en México, SNIES en Colombia, etc.)
-
----
-
-### H3 · Bootcamps tech activos
-
-Programas de formación intensiva en programación, diseño UX, data science, etc. Incluir presenciales y remotos con presencia local (oficina o comunidad).
-
-| Score | Rango | Referencia |
-|-------|-------|------------|
-| 80-100 | 5+ bootcamps activos | Hub tech consolidado |
-| 60-79 | 3-4 bootcamps | Buena oferta de formación alternativa |
-| 40-59 | 1-2 bootcamps | Oferta básica, generalmente 1 presencial + 1 remoto |
-| 20-39 | Solo bootcamps remotos sin presencia local | Acceso solo digital, sin comunidad local |
-| 0-19 | 0 bootcamps | Sin formación tech intensiva |
-
-**Tipo de benchmark:** Absoluto
 
 ---
 

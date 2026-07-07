@@ -1,16 +1,9 @@
 # Reporte Consolidado Multi-Ciudad
 
-## Metadata
-- **Comando:** /consolidado
-- **Aliases:** /consolidated, /multi-report
-- **Idioma:** bilingüe (según sesión)
-- **Versión:** 1.0
-
 ## Descripción
 Genera un documento consolidado que integra múltiples diagnósticos de ecosistema en un reporte único con panorama comparativo, perfiles individuales por ciudad y metodología compartida. Diseñado para producir reportes regionales como "Ecosistemas de emprendimiento en México: Diagnóstico de 10 Ciudades." Reutilizable para cualquier agrupación regional o temática de ecosistemas diagnosticados.
 
-## Trigger
-- El usuario escribe `/consolidado [descriptor]` o `/consolidated [descriptor]`
+## Cuándo se usa
 - El usuario pide consolidar, integrar o unificar diagnósticos existentes
 - El usuario pide un reporte multi-ciudad o regional
 
@@ -59,7 +52,7 @@ FASE 0 — INVENTARIO Y CONFIGURACIÓN (1 pase):
 
 FASE 1 — CAPÍTULO 1: INTRODUCCIÓN (1 pase):
 
-1. Leer drive/METODOLOGIA_ES.md (o _EN.md) para contexto general
+1. Leer drive/METODOLOGIA_EN.md (canónica, V3.7) para contexto general
 2. Leer references/countries/[pais].md para datos nacionales
 3. Redactar introducción:
    - Propósito del documento
@@ -104,7 +97,7 @@ Hermosillo, La Paz, León, Mérida, Oaxaca, San Luis Potosí, Zacatecas
 
 FASE 4 — CAPÍTULO 4: METODOLOGÍA (1 pase):
 
-1. Leer drive/METODOLOGIA_ES.md (o _EN.md)
+1. Leer drive/METODOLOGIA_EN.md (canónica, V3.7)
 2. Redactar:
    4.1 El modelo ANDE — Explicar el toolkit de diagnóstico.
        Incluir aquí la ÚNICA explicación completa del modelo de generaciones
@@ -249,7 +242,7 @@ Formato:
 |---------|------|------|
 | Diagnósticos | `output/*phase1.md` o `output/*, [pais].md` | 0, 2, 3 |
 | CSVs indicadores | `output/*indicators.csv` | 0, 2 |
-| Metodología ANDE | `drive/METODOLOGIA_ES.md` o `_EN.md` | 1, 4 |
+| Metodología ANDE | `drive/METODOLOGIA_EN.md` (canónica) | 1, 4 |
 | Datos por país | `references/countries/[pais].md` | 1, 2 |
 | Humanizador | `guides/editor-humano.md` o `humanizer.md` | 3, 5 |
 | Rúbrica scoring | `references/rubrica-scoring.md` | 2 (si necesita contexto) |

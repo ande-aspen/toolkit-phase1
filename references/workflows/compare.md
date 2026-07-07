@@ -1,16 +1,9 @@
 # Comparativo de Ecosistemas
 
-## Metadata
-- **Comando:** /compare
-- **Aliases:** /comparar
-- **Idioma:** bilingüe (español por defecto)
-- **Versión:** 1.0
-
 ## Descripción
 Compara múltiples ecosistemas diagnosticados, usando los CSVs de indicadores y reportes en `output/`. Genera una tabla comparativa, identifica patrones regionales, cuellos de botella compartidos, fortalezas complementarias, y oportunidades de aprendizaje cruzado entre ecosistemas.
 
-## Trigger
-- El usuario escribe `/compare [ciudades]` o `/comparar [ciudades]`
+## Cuándo se usa
 - El usuario pide comparar ecosistemas, hacer benchmark, o análisis regional
 - Invocado automáticamente al final de un batch de diagnósticos
 
@@ -75,7 +68,7 @@ Compara múltiples ecosistemas diagnosticados, usando los CSVs de indicadores y 
 |---------|------|-----------------|
 | CSVs de indicadores | `output/*indicators.csv` | Siempre, son la fuente principal |
 | Reportes de diagnóstico | `output/*phase1.md` | Para contexto cualitativo |
-| Metodología | `drive/METODOLOGIA_ES.md` | Si necesita marco teórico para interpretación |
+| Metodología | `drive/METODOLOGIA_EN.md` (canónica) | Si necesita marco teórico para interpretación |
 | Knowledge base | `knowledge/INDEX.md` | Si la comparación necesita respaldo teórico |
 
 ## Outputs

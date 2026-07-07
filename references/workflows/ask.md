@@ -1,16 +1,9 @@
 # Consulta a la Base de Conocimiento
 
-## Metadata
-- **Comando:** /ask
-- **Aliases:** /consulta
-- **Idioma:** bilingüe (responde en el idioma de la pregunta)
-- **Versión:** 1.0
-
 ## Descripción
 Consulta conversacional a la base de conocimiento del agente. Busca en papers ingresados (`knowledge/`), referencias del diagnóstico (`drive/REFERENCES_MASTER.md`), y metodología ANDE para responder preguntas sobre ecosistemas emprendedores. Soporta preguntas sobre papers específicos, temas, dominios, comparaciones entre autores, y aplicación práctica.
 
-## Trigger
-- El usuario escribe `/ask [pregunta]` o `/consulta [pregunta]`
+## Cuándo se usa
 - El usuario hace una pregunta sobre ecosistemas, papers, literatura, o metodología
 - El usuario quiere debatir ideas, conectar conceptos, o generar hipótesis
 
@@ -41,7 +34,7 @@ Consulta conversacional a la base de conocimiento del agente. Busca en papers in
       - Leer los índices de drive/REFERENCES_MASTER.md (por dominio o tema)
       - Leer los extractos relevantes identificados
    d. Si la consulta toca metodología:
-      - Leer drive/METODOLOGIA_ES.md o _EN.md según idioma
+      - Leer drive/METODOLOGIA_EN.md (canónica, V3.7); METODOLOGIA_ES.md solo para terminología en español
    e. Si la consulta se relaciona con una ciudad diagnosticada:
       - Revisar output/ para CSVs y reportes existentes
 
@@ -77,7 +70,7 @@ Consulta conversacional a la base de conocimiento del agente. Busca en papers in
 | Índice de KB | `knowledge/INDEX.md` | Siempre, para discovery |
 | Papers individuales | `knowledge/papers/*.md` | Los que el índice identifique como relevantes |
 | Referencias diagnóstico | `drive/REFERENCES_MASTER.md` | Si toca temas ANDE/diagnóstico |
-| Metodología ANDE | `drive/METODOLOGIA_ES.md` o `_EN.md` | Si toca metodología |
+| Metodología ANDE | `drive/METODOLOGIA_EN.md` (canónica) | Si toca metodología |
 | Diagnósticos existentes | `output/*.csv`, `output/*.md` | Si pregunta sobre ciudades |
 
 ## Outputs

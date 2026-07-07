@@ -2,6 +2,8 @@
 
 Documento interno que explica paso a paso cómo se asignan los scores del diagnóstico de ecosistemas emprendedores bajo la metodología ANDE.
 
+> **Nota:** el procedimiento vigente incluye además tres métricas agregadas que esta guía no cubre — score ajustado por cuello de botella (media geométrica), rango de incertidumbre por estimaciones, y validación estructural de madurez. La fuente autoritativa de los cálculos es la sección "Cálculos" de `references/workflows/diagnostico.md`, y `scripts/score.py` los computa todos automáticamente.
+
 ---
 
 ## 1. Principios Generales
@@ -206,8 +208,8 @@ Los rangos de la rúbrica están calibrados para ecosistemas en América Latina 
 | S4 | Mentores registrados | Mixto | Sí |
 | S5 | Velocidad internet (Mbps) | Absoluto | No |
 | H1 | Universidades con programas emprendimiento | Absoluto | No |
-| H2 | Graduados STEM anuales | Absoluto | No |
-| H3 | Bootcamps tech activos | Absoluto | No |
+| H2 | Bootcamps tech activos | Absoluto | No |
+| H3 | Graduados STEM anuales | Absoluto | No |
 | H4 | Talento tech disponible | Absoluto | No |
 | H5 | Acceso internet (%) | Absoluto | No |
 | I1 | Patentes otorgadas (5 años) | Mixto | Sí |

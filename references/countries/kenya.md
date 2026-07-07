@@ -65,7 +65,7 @@ Kenya ranks among the better-performing African markets for fixed broadband due 
 - **Women Enterprise Fund / Youth Enterprise Development Fund / Uwezo Fund / Biashara Kenya Fund:** Public enterprise funds for marginalized groups and MSMEs
 - **Startup Bill 2022:** Pending legislation; would create dedicated legal framework — verify status before scoring P3
 
-### Education System (for H2 — STEM Graduates)
+### Education System (for H3 — STEM Graduates)
 - **Primary source:** Commission for University Education (CUE) and KNBS Statistical Abstract
 - **Allocation method:** National STEM graduate data × share of enrollment in Nairobi institutions (high concentration)
 - **STEM disciplines:** Engineering, ICT/computing, natural sciences, mathematics
@@ -78,7 +78,7 @@ Kenya ranks among the better-performing African markets for fixed broadband due 
 ### Recurring Data Sources
 | Indicator | National source | How to locate |
 |-----------|----------------|----------------|
-| H2 (STEM) | CUE / KNBS | cue.or.ke, knbs.or.ke → Statistical Abstract |
+| H3 (STEM) | CUE / KNBS | cue.or.ke, knbs.or.ke → Statistical Abstract |
 | H5 (Internet %) | Communications Authority of Kenya | ca.go.ke → Sector Statistics Reports |
 | I1 (Patents) | KIPI | kipi.go.ke → statistics |
 | I3 (Publications) | SCImago / Scopus | scimagojr.com → by institution |

@@ -2,6 +2,8 @@
 
 Internal document explaining step by step how scores are assigned in the entrepreneurial ecosystem diagnostic under the ANDE methodology.
 
+> **Note:** the current procedure also includes three aggregate metrics not covered by this guide — bottleneck-adjusted score (geometric mean), estimation uncertainty range, and structural maturity validation. The authoritative source for all calculations is the "Cálculos" section of `references/workflows/diagnostico.md`, and `scripts/score.py` computes all of them automatically.
+
 ---
 
 ## 1. General Principles
@@ -206,8 +208,8 @@ The rubric ranges are calibrated for ecosystems in Latin America and developing 
 | S4 | Registered mentors | Mixed | Yes |
 | S5 | Internet speed (Mbps) | Absolute | No |
 | H1 | Universities with entrepreneurship programs | Absolute | No |
-| H2 | Annual STEM graduates | Absolute | No |
-| H3 | Active tech bootcamps | Absolute | No |
+| H2 | Active tech bootcamps | Absolute | No |
+| H3 | Annual STEM graduates | Absolute | No |
 | H4 | Available tech talent | Absolute | No |
 | H5 | Internet access (%) | Absolute | No |
 | I1 | Patents granted (5 years) | Mixed | Yes |

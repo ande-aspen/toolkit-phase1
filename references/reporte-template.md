@@ -28,7 +28,7 @@ Este archivo define la estructura, contenido y proceso de redacción para cada s
 | | |
 |---|---|
 | **Fecha** | [Mes Año] |
-| **Metodología** | ANDE Ecosystem Diagnostic Toolkit – Fase 1 (Segunda Edición, 2025) |
+| **Metodología** | ANDE Entrepreneurial Ecosystem Diagnostic Toolkit – Fase 1 (Segunda Edición, enero 2026) |
 | **Nivel de madurez** | [Naciente | Emergente | En Desarrollo | Autosostenible] |
 | **Score global** | [XX]/100 |
 | **Población de referencia** | [X.X millones] ([Zona Metropolitana | Ciudad | Región]) |
@@ -70,7 +70,7 @@ Contextualización del ecosistema y justificación del nivel de madurez asignado
 
 ### Fuentes de información
 - **Primaria:** Datos del input de indicadores (Paso 1) + scores calculados
-- **Consultar:** `drive/METODOLOGIA_ES.md` — buscar: niveles de madurez, generaciones (Cukier & Kon), patrón Condición vs Resultado, secuencia evolutiva
+- **Consultar:** `drive/METODOLOGIA_EN.md` (canónica, V3.7) — buscar: maturity levels, generations (Cukier & Kon), condition vs. outcome, evolutionary sequence. `METODOLOGIA_ES.md` solo como apoyo de terminología en español.
 
 ### Estructura
 
@@ -100,7 +100,7 @@ Contextualización del ecosistema y justificación del nivel de madurez asignado
 
 **Después de la tabla, 3 párrafos con headers en negrita:**
 
-**Nivel de madurez.** Clasificación (Naciente/Emergente/En Desarrollo/Autosostenible), justificación basada en las características observadas, y referencia al concepto de generaciones de Cukier & Kon. ¿Hay evidencia de emprendedores exitosos reinvirtiendo en el ecosistema (Generación 2+)? Si no, ¿en qué generación está? Footnote a ANDE metodología.
+**Nivel de madurez.** Clasificación (Naciente/Emergente/En Desarrollo/Autosostenible) propuesta por el score y **validada contra los 4 marcadores estructurales** (reinversión Gen 2+, capital local activo, ESOs sostenibles, atracción neta — ver `references/workflows/diagnostico.md`, Validación Estructural de Madurez). Referencia al concepto de generaciones de Cukier & Kon. Si el score y la estructura divergen, reportar ambos sin promediar (ej: "score de Autosostenible con estructura de En Desarrollo") — la divergencia es un hallazgo. Footnote a ANDE metodología.
 
 **Patrón Condición-Resultado.** Calcular el promedio de dominios Condición (Política, Servicios, Capital Humano, I+D) y el promedio de dominios Resultado (Financiamiento, Cultura, Mercados). Clasificar en uno de los 4 patrones:
 
@@ -113,7 +113,7 @@ Contextualización del ecosistema y justificación del nivel de madurez asignado
 
 Explicar qué significa este patrón para el ecosistema específico. Footnote a ANDE.
 
-**Restricción principal.** Identificar el cuello de botella (dominio con score más bajo). Explicar por qué este dominio limita al ecosistema usando la lógica sistémica de ANDE: "las debilidades en un dominio pueden neutralizar las fortalezas en otros." Si la diferencia con el segundo más bajo es <5 puntos, mencionar ambos como críticos. Referir a la secuencia evolutiva para indicar si el cuello de botella corresponde a la etapa actual o es prematuro. Footnote a ANDE.
+**Restricción principal.** Identificar el cuello de botella (dominio con score más bajo). Explicar por qué este dominio limita al ecosistema usando la lógica sistémica de ANDE: "las debilidades en un dominio pueden neutralizar las fortalezas en otros." Si la diferencia con el segundo más bajo es <5 puntos, mencionar ambos como críticos. Incluir el **score ajustado por cuello de botella** (media geométrica de los 7 dominios): si la brecha con el score global es >8 puntos, decir explícitamente que los dominios fuertes enmascaran la severidad de la restricción. Referir a la secuencia evolutiva para indicar si el cuello de botella corresponde a la etapa actual o es prematuro. Footnote a ANDE.
 
 ### Qué NO hacer
 - No explicar la metodología ANDE (eso va en Referencias)
@@ -129,13 +129,13 @@ Análisis cualitativo y estratégico de cada dominio. NO es una descripción del
 
 ### Fuentes de información
 - **Primaria:** Datos del input de indicadores (Paso 1)
-- **Consultar:** `drive/METODOLOGIA_ES.md` — buscar: descripción de cada dominio, marco Condición-Resultado, secuencia evolutiva, intervenciones por madurez (Tabla 4.3)
-- **Consultar (selectivamente):** `drive/REF_*.pdf` del proyecto cuando un dominio requiera contexto adicional. Por ejemplo:
-  - Financiamiento → buscar en REFs sobre inversión, venture capital en LATAM
-  - Servicios de Apoyo → buscar en REFs sobre aceleradoras, BDS, ESOs
-  - Cultura → buscar en REFs sobre comunidades emprendedoras
-  - Capital Humano → buscar en REFs sobre talento, educación
-  - No es obligatorio consultar REFs para cada dominio; solo cuando el análisis se beneficie de contexto adicional.
+- **Consultar:** `drive/METODOLOGIA_EN.md` — buscar: descripción de cada dominio, marco Condición-Resultado, secuencia evolutiva, intervenciones por madurez (Tabla 4.3)
+- **Consultar (selectivamente):** `knowledge/INDEX.md` → abrir los 2-3 papers de `knowledge/papers/` relevantes cuando un dominio requiera contexto adicional. Por ejemplo:
+  - Financiamiento → tema "Financing & Investment" (GALI, Roberts, Davidson)
+  - Servicios de Apoyo → tema "Accelerators & BDS Effectiveness" (Argidius, Guttentag)
+  - Cultura → tema "Culture & Social Capital" (Macke, comunidades emprendedoras)
+  - Capital Humano → papers sobre talento y educación
+  - No es obligatorio consultar la KB para cada dominio; solo cuando el análisis se beneficie de contexto adicional.
 
 ### Estructura
 
@@ -195,13 +195,13 @@ Mapa de los actores identificados durante la investigación, clasificados por ti
 ```
 
 ### Reglas
-- Solo incluir actores confirmados como activos (ver criterios de vigencia en CLAUDE.md, sección Criterios de Vigencia)
+- Solo incluir actores confirmados como activos (ver criterios de vigencia en `references/workflows/diagnostico.md`, sección Criterios de Vigencia)
 - Marcar con `(?)` los actores cuya vigencia no se pudo confirmar
 - Un actor puede aparecer en más de un tipo si cumple múltiples roles (ej: una universidad que opera incubadora aparece en Academia y en Organizaciones de Apoyo)
 - Si un tipo no tiene actores identificados, poner "No identificados" y no inventar
 
 ### Párrafo de contexto (después de la tabla)
-Un párrafo breve (60-80 palabras) señalando patrones notables: ¿hay concentración excesiva en algún tipo? ¿hay vacíos evidentes? ¿algún actor cumple roles múltiples que lo hacen crítico para el sistema?
+Un párrafo breve (60-80 palabras) señalando patrones notables: ¿hay concentración excesiva en algún tipo? ¿hay vacíos evidentes? ¿algún actor cumple roles múltiples que lo hacen crítico para el sistema? Si el research identificó programas con lente de género o startups lideradas por mujeres, mencionarlo aquí; si no se encontró ninguno, esa ausencia también es un patrón señalable.
 
 ---
 
@@ -212,8 +212,8 @@ Las 4 fortalezas más relevantes del ecosistema. No son simplemente "los dominio
 
 ### Fuentes de información
 - **Primaria:** Datos de investigación + scores
-- **Consultar:** `drive/METODOLOGIA_ES.md` — buscar: características de ecosistemas consolidados, factores comunes de éxito, concepto de condiciones framework vs sistémicas
-- **Consultar:** `drive/REF_*.pdf` relevantes para contextualizar la fortaleza (ej: si la fortaleza es una red de mentores fuerte, buscar en `ref_Mentors_Final.pdf` para dar contexto de por qué importa)
+- **Consultar:** `drive/METODOLOGIA_EN.md` — buscar: características de ecosistemas consolidados, factores comunes de éxito
+- **Consultar:** `knowledge/INDEX.md` → papers relevantes para contextualizar la fortaleza (ej: si la fortaleza es una red de mentores fuerte, abrir `macke-2022-mentoring-methods.md` para dar contexto de por qué importa)
 
 ### Estructura
 
@@ -254,8 +254,8 @@ Los 4 retos más importantes del ecosistema. No son simplemente "los dominios co
 
 ### Fuentes de información
 - **Primaria:** Datos de investigación + scores + cuello de botella identificado
-- **Consultar:** `drive/METODOLOGIA_ES.md` — buscar: concepto de cuello de botella, restricción principal, secuencia evolutiva (¿el reto corresponde a la etapa actual?), patrón Condición-Resultado
-- **Consultar:** `drive/REF_*.pdf` relevantes para dimensionar el reto (ej: si el reto es falta de financiamiento, buscar en REFs sobre inversión en LATAM para dar escala comparativa)
+- **Consultar:** `drive/METODOLOGIA_EN.md` — buscar: concepto de cuello de botella, restricción principal, secuencia evolutiva (¿el reto corresponde a la etapa actual?), patrón Condición-Resultado
+- **Consultar:** `knowledge/INDEX.md` → papers relevantes para dimensionar el reto (ej: si el reto es falta de financiamiento, abrir los papers GALI/LAVCA del tema "Financing & Investment" para dar escala comparativa)
 
 ### Estructura
 
@@ -296,12 +296,12 @@ Buscar estos patrones:
 
 ### Fuentes de información
 - **Primaria:** Cuello de botella, nivel de madurez, brechas identificadas
-- **Consultar (OBLIGATORIO):** `drive/METODOLOGIA_ES.md` — buscar: Capítulo 5 (intervenciones por actor y madurez), Tabla 4.3 (acciones por dominio y madurez), Tabla 5.1+ (rol de cada actor por madurez), concepto de "claridad en la acción", "prioridad en la restricción principal", "viabilidad de implementación"
-- **Consultar (OBLIGATORIO):** `drive/REF_*.pdf` del proyecto para respaldar recomendaciones con evidencia y buenas prácticas. Buscar casos, datos de impacto, lecciones aprendidas que fundamenten la recomendación. Ejemplos:
-  - Para recomendaciones sobre servicios de apoyo → `REF_report-fulfilling-the-potential-of-bds.pdf`, `ref_Business_Services_FINAL.pdf`, `REF_GALI_Knowledge_Synthesis_English.pdf`
-  - Para recomendaciones sobre financiamiento → REFs sobre inversión, LAVCA, venture capital
-  - Para recomendaciones sobre cultura → `ref_eEcosystems_Four_Decades_Final.pdf`, `refEMovements_FINAL.pdf`
-  - Para recomendaciones sobre política → `REF_david.pdf`, toolkit de política OECD
+- **Consultar (OBLIGATORIO):** `drive/METODOLOGIA_EN.md` — buscar: Capítulo 5 (rol por actor y madurez, Tablas 5.1-5.7 — incluye "Corporations and Large Enterprises"), Tabla 4.3 (acciones por dominio y madurez), criterios "actionable recommendations", "focus on the bottleneck", "implementation viability"
+- **Consultar (OBLIGATORIO):** `knowledge/INDEX.md` → papers de `knowledge/papers/` para respaldar recomendaciones con evidencia y buenas prácticas. Citar con autor, año e INS-# cuando aplique. Ejemplos:
+  - Para recomendaciones sobre servicios de apoyo → `argidius-2021-scale-framework.md`, `guttentag-2021-gali-acceleration-synthesis.md`, `macke-2022-entrepreneurial-communities-services.md`
+  - Para recomendaciones sobre financiamiento → `roberts-2017-gali-emerging-markets.md`, `davidson-2021-gali-central-america.md`
+  - Para recomendaciones sobre cultura → `macke-2020-community-building-framework.md`, `macke-2023-entrepreneurship-movements.md`
+  - Para recomendaciones sobre política → `i4policy-giz-ande-policy-toolkit.md`, `oecd-2025-ee-diagnostics.md`
 
 ### Filtro de la Tabla 4.3
 
@@ -329,7 +329,7 @@ Distribución: 3 Alta, 3 Media, 1-2 Baja prioridad.
 ### 1. [Nombre de la recomendación — verbo de acción + objeto]
 **Prioridad: [Alta|Media|Baja]** · Dominio: [Dominio] · Status: [🆕 Nueva | 🔄 Fortalecer existente]
 
-[Párrafo de fundamentación: qué problema ataca, por qué es prioritaria, qué evidencia la respalda. Incluir al menos un dato o referencia de los REFs del proyecto o de la metodología ANDE. 80-120 palabras. Footnote.]
+[Párrafo de fundamentación: qué problema ataca, por qué es prioritaria, qué evidencia la respalda. Incluir al menos un dato o referencia de papers de `knowledge/` o de la metodología ANDE. 80-120 palabras. Footnote.]
 
 - **Acción sugerida:** [Específica y medible — no "mejorar el financiamiento" sino "diseñar un programa de preparación para inversión de 12 semanas para 15 startups por cohorte"]
 - **Actores posibles:** [Actor] ([rol]), [Actor] ([rol])
@@ -347,7 +347,7 @@ Antes de incluir una recomendación, verificar:
 1. **¿Es accionable?** ¿Alguien puede empezar a implementarla mañana? Si no, hacerla más concreta.
 2. **¿Quién la lidera?** Si no se puede identificar un actor posible, probablemente es demasiado abstracta.
 3. **¿Es coherente con la madurez?** Verificar contra Tabla 4.3.
-4. **¿Está respaldada?** ¿Hay evidencia de que esto funciona en contextos similares? Citar REFs.
+4. **¿Está respaldada?** ¿Hay evidencia de que esto funciona en contextos similares? Citar papers de `knowledge/` (autor, año, INS-#).
 5. **¿Complementa o duplica?** Verificar que no recomiende crear algo que ya existe.
 
 ### Cierre: Siguientes Pasos
@@ -360,7 +360,7 @@ Después de las recomendaciones, un párrafo breve (60-80 palabras):
 ### Qué NO hacer
 - No recomendar "atraer inversión" a un ecosistema Naciente (la secuencia dice Esperar)
 - No hacer recomendaciones genéricas sin actor ni métrica
-- No basar recomendaciones solo en el criterio de Claude; fundamentar con ANDE + REFs
+- No basar recomendaciones solo en el criterio de Claude; fundamentar con ANDE + papers de `knowledge/`
 - No repetir los retos con otras palabras; las recomendaciones son SOLUCIONES a los retos
 
 ---
@@ -392,7 +392,13 @@ Tabla detallada de los 30 indicadores + footnotes consolidados + créditos metod
 
 **Nota sobre datos:**
 ```markdown
-> **Nota metodológica:** Los valores marcados con (est.) son estimaciones basadas en datos nacionales o regionales proporcionalizados. Los valores marcados con (?) no pudieron verificarse con fuentes recientes. Este diagnóstico se basa en la metodología ANDE Ecosystem Diagnostic Toolkit, Fase 1 (Segunda Edición, 2025).
+> **Nota metodológica:** Los valores marcados con (est.) son estimaciones basadas en datos nacionales o regionales proporcionalizados. Los valores marcados con (?) no pudieron verificarse con fuentes recientes. El score global es [X]; excluyendo los [N] indicadores estimados sería [Y] ([Z]% del diagnóstico se basa en estimaciones). Este diagnóstico se basa en la metodología ANDE Entrepreneurial Ecosystem Diagnostic Toolkit, Fase 1 (Segunda Edición, enero 2026).
+```
+Si el % estimado supera 30, agregar: "El score es sensible a research adicional: es probable que evidencia más profunda lo mueva hacia arriba."
+
+**Límites de la Fase 1 (bloque fijo, adaptar solo los corchetes):**
+```markdown
+> **Límites de este diagnóstico:** La Fase 1 se construye con datos públicos y mide condiciones y resultados observables. No captura: las dinámicas de colaboración entre actores ni la identificación de articuladores (Fase 2); la madurez digital del territorio más allá de la conectividad; la capacidad del ecosistema para atender emprendimientos de impacto social y ambiental; la actividad emprendedora informal, que en [región] representa una parte sustancial de la economía; ni la desagregación por género de la actividad registrada. Estos ángulos requieren la Fase 2 (encuestas a actores) y la Fase 3 (entrevistas) de la metodología.
 ```
 
 **Siguiente paso:**
@@ -407,7 +413,7 @@ Tabla detallada de los 30 indicadores + footnotes consolidados + créditos metod
 
 ## Referencias
 
-¹ ANDE (2025). *Modelo para el Diagnóstico de Ecosistemas de Emprendimiento*, Segunda Edición.
+¹ ANDE (2025). *Entrepreneurship Ecosystem Diagnosis Model* (2ª ed.). Aspen Network of Development Entrepreneurs. [Cita oficial sugerida por el toolkit; edición publicada en enero 2026]
 ² [Fuente 2]
 ³ [Fuente 3]
 ...
@@ -419,7 +425,7 @@ Tabla detallada de los 30 indicadores + footnotes consolidados + créditos metod
 **ANDE**
 Aspen Network of Development Entrepreneurs
 
-*Diagnóstico elaborado siguiendo la metodología ANDE Ecosystem Diagnostic Toolkit, Fase 1 (Segunda Edición, 2025).*
+*Diagnóstico elaborado siguiendo la metodología ANDE Entrepreneurial Ecosystem Diagnostic Toolkit, Fase 1 (Segunda Edición, enero 2026).*
 
 </div>
 ```
@@ -428,7 +434,7 @@ Aspen Network of Development Entrepreneurs
 - Cada fuente aparece UNA sola vez con un número único
 - Si ANDE se cita 10 veces en el cuerpo, todas llevan ¹
 - Formato: `Autor (Año). *Título*. Organización/URL.`
-- Los REFs del proyecto consultados durante el análisis y recomendaciones DEBEN aparecer aquí
+- Los papers de `knowledge/` consultados durante el análisis y recomendaciones DEBEN aparecer aquí
 
 ---
 
@@ -477,19 +483,23 @@ Aspen Network of Development Entrepreneurs
 - [ ] 8 secciones completas
 - [ ] Resumen ejecutivo: 4 párrafos, sin bullets, con footnotes
 - [ ] Tabla de evaluación con semáforos correctos
+- [ ] Madurez validada estructuralmente (divergencia score/estructura reportada si existe)
+- [ ] Score ajustado por cuello de botella mencionado en Restricción principal (explicado si brecha >8)
 - [ ] Patrón Condición-Resultado identificado y explicado
 - [ ] 7 análisis de dominio: 1 párrafo estratégico cada uno, NO descriptivo
 - [ ] Tabla de actores completa con 5 tipos
 - [ ] 4 fortalezas con títulos específicos y footnotes
 - [ ] 4 retos con títulos que nombren el problema, no la solución
 - [ ] 6-8 recomendaciones verificadas contra Tabla 4.3
-- [ ] Recomendaciones con fundamentación de ANDE + REFs del proyecto
+- [ ] Recomendaciones con fundamentación de ANDE + papers de `knowledge/`
 - [ ] Tabla de 30 indicadores en sección 8 con columna de Score
+- [ ] Nota metodológica con rango de incertidumbre (score sin estimados + % estimado)
+- [ ] Bloque "Límites de este diagnóstico" incluido en sección 8
 
 ### Fuentes consultadas
-- [ ] `drive/METODOLOGIA_ES.md` consultada para: madurez, Condición-Resultado, secuencia evolutiva, Tabla 4.3
+- [ ] `drive/METODOLOGIA_EN.md` consultada para: madurez, Condición-Resultado, secuencia evolutiva, Tabla 4.3
 - [ ] Texto del reporte pasado por guía de humanización (guides/editor-humano.md para ES / guides/humanizer.md para EN)
-- [ ] `drive/REF_*.pdf` consultados para: al menos 3 recomendaciones tienen respaldo de REFs
+- [ ] `knowledge/INDEX.md` + papers consultados: al menos 3 recomendaciones tienen respaldo de la KB (autor, año, INS-#)
 
 ### Formato
 - [ ] Sin bullets en prosa narrativa
