@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar de Dominios: Tulum y Riviera Maya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #1a1f2e;
+      --color-secondary: #3d4455;
+      --color-muted: #5c6272;
+      --color-border: #c5c9d1;
+      --color-accent: #2d3a52;
+      --color-danger: #8b3a3a;
+      --font-serif: 'Crimson Pro', Georgia, serif;
+      --font-sans: 'Barlow', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: #fff;
+      color: var(--color-primary);
+      line-height: 1.5;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 40px;
+    }
+
+    .radar-section {
+      border: 1px solid var(--color-border);
+      padding: 40px;
+    }
+
+    .radar-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .radar-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: var(--color-primary);
+    }
+
+    .radar-subtitle {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-style: italic;
+      color: var(--color-secondary);
+    }
+
+    .radar-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .radar-chart {
+      flex-shrink: 0;
+    }
+
+    .domains-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .domain-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .domain-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .domain-number.bottleneck {
+      background: var(--color-danger);
+    }
+
+    .domain-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .domain-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    .domain-score {
+      font-size: 14px;
+      color: var(--color-muted);
+    }
+
+    .domain-score.bottleneck {
+      color: var(--color-danger);
+      font-weight: 500;
+    }
+
+    .radar-legend {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+      font-size: 15px;
+      color: var(--color-secondary);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-line {
+      width: 20px;
+      height: 2px;
+    }
+
+    .radar-footer {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .footer-methodology {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-secondary);
+      margin-bottom: 8px;
+    }
+
+    .footer-disclaimer {
+      font-size: 13px;
+      color: var(--color-muted);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    @media print {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="radar-section">
+      <div class="radar-header">
+        <div class="radar-title">Radar de Dominios</div>
+        <div class="radar-subtitle">Tulum y Riviera Maya, Quintana Roo, M&eacute;xico &mdash; Score: 33/100 (Emergente)</div>
+      </div>
+
+      <div class="radar-content">
+        <div class="radar-chart">
+          <svg width="420" height="400" viewBox="0 0 420 400">
+            <defs>
+              <style>
+                .axis-number {
+                  font-family: 'Barlow', sans-serif;
+                  font-size: 14px;
+                  font-weight: 600;
+                  fill: white;
+                }
+              </style>
+            </defs>
+
+            <!-- Círculos de referencia -->
+            <circle cx="210" cy="200" r="150" fill="none" stroke="#d8dae0" stroke-width="1"/>
+            <circle cx="210" cy="200" r="112" fill="none" stroke="#d8dae0" stroke-width="1" stroke-dasharray="2,2"/>
+            <circle cx="210" cy="200" r="75" fill="none" stroke="#d8dae0" stroke-width="1" stroke-dasharray="2,2"/>
+            <circle cx="210" cy="200" r="37" fill="none" stroke="#d8dae0" stroke-width="1" stroke-dasharray="2,2"/>
+
+            <!-- Línea de referencia 60/100 -->
+            <circle cx="210" cy="200" r="90" fill="none" stroke="#8a8f9d" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+            <!-- Ejes (7 dominios) -->
+            <!-- 0: Política (arriba, -90°) -->
+            <line x1="210" y1="200" x2="210" y2="50" stroke="#c5c9d1" stroke-width="1"/>
+            <!-- 1: Financiamiento (-38.57°) -->
+            <line x1="210" y1="200" x2="327" y2="106" stroke="#c5c9d1" stroke-width="1"/>
+            <!-- 2: Cultura (12.86°) -->
+            <line x1="210" y1="200" x2="356" y2="233" stroke="#c5c9d1" stroke-width="1"/>
+            <!-- 3: Servicios (64.29°) -->
+            <line x1="210" y1="200" x2="275" y2="335" stroke="#c5c9d1" stroke-width="1"/>
+            <!-- 4: Capital Humano (115.71°) -->
+            <line x1="210" y1="200" x2="145" y2="335" stroke="#c5c9d1" stroke-width="1"/>
+            <!-- 5: Mercados (167.14°) -->
+            <line x1="210" y1="200" x2="64" y2="233" stroke="#c5c9d1" stroke-width="1"/>
+            <!-- 6: I+D (218.57°) -->
+            <line x1="210" y1="200" x2="93" y2="106" stroke="#c5c9d1" stroke-width="1"/>
+
+            <!-- Polígono del ecosistema -->
+            <!-- Valores: 1-Política 47, 2-Financiamiento 15, 3-Cultura 42, 4-Servicios 47, 5-Capital Humano 38, 6-Mercados 33, 7-I+D 10 -->
+            <polygon
+              points="210,130 228,186 271,214 241,264 185,251 162,211 198,191"
+              fill="rgba(45, 58, 82, 0.18)"
+              stroke="#2d3a52"
+              stroke-width="2"
+            />
+
+            <!-- Puntos numerados -->
+            <!-- 1: Política (47) - arriba -->
+            <circle cx="210" cy="130" r="14" fill="#2d3a52"/>
+            <text x="210" y="134" class="axis-number" text-anchor="middle">1</text>
+
+            <!-- 2: Financiamiento (15) - BOTTLENECK -->
+            <circle cx="228" cy="186" r="14" fill="#8b3a3a"/>
+            <text x="228" y="190" class="axis-number" text-anchor="middle">2</text>
+            <circle cx="228" cy="186" r="20" fill="none" stroke="#8b3a3a" stroke-width="2"/>
+
+            <!-- 3: Cultura (42) -->
+            <circle cx="271" cy="214" r="14" fill="#2d3a52"/>
+            <text x="271" y="218" class="axis-number" text-anchor="middle">3</text>
+
+            <!-- 4: Servicios (47) -->
+            <circle cx="241" cy="264" r="14" fill="#2d3a52"/>
+            <text x="241" y="268" class="axis-number" text-anchor="middle">4</text>
+
+            <!-- 5: Capital Humano (38) -->
+            <circle cx="185" cy="251" r="14" fill="#2d3a52"/>
+            <text x="185" y="255" class="axis-number" text-anchor="middle">5</text>
+
+            <!-- 6: Mercados (33) -->
+            <circle cx="162" cy="211" r="14" fill="#2d3a52"/>
+            <text x="162" y="215" class="axis-number" text-anchor="middle">6</text>
+
+            <!-- 7: I+D (10) - BOTTLENECK -->
+            <circle cx="198" cy="191" r="14" fill="#8b3a3a"/>
+            <text x="198" y="195" class="axis-number" text-anchor="middle">7</text>
+            <circle cx="198" cy="191" r="20" fill="none" stroke="#8b3a3a" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <div class="domains-list">
+          <div class="domain-item">
+            <div class="domain-number">1</div>
+            <div class="domain-info">
+              <span class="domain-name">Pol&iacute;tica</span>
+              <span class="domain-score">Score: 47</span>
+            </div>
+          </div>
+
+          <div class="domain-item">
+            <div class="domain-number bottleneck">2</div>
+            <div class="domain-info">
+              <span class="domain-name">Financiamiento</span>
+              <span class="domain-score bottleneck">Score: 15 &middot; Cuello de botella</span>
+            </div>
+          </div>
+
+          <div class="domain-item">
+            <div class="domain-number">3</div>
+            <div class="domain-info">
+              <span class="domain-name">Cultura</span>
+              <span class="domain-score">Score: 42</span>
+            </div>
+          </div>
+
+          <div class="domain-item">
+            <div class="domain-number">4</div>
+            <div class="domain-info">
+              <span class="domain-name">Servicios</span>
+              <span class="domain-score">Score: 47</span>
+            </div>
+          </div>
+
+          <div class="domain-item">
+            <div class="domain-number">5</div>
+            <div class="domain-info">
+              <span class="domain-name">Capital Humano</span>
+              <span class="domain-score">Score: 38</span>
+            </div>
+          </div>
+
+          <div class="domain-item">
+            <div class="domain-number">6</div>
+            <div class="domain-info">
+              <span class="domain-name">Mercados</span>
+              <span class="domain-score">Score: 33</span>
+            </div>
+          </div>
+
+          <div class="domain-item">
+            <div class="domain-number bottleneck">7</div>
+            <div class="domain-info">
+              <span class="domain-name">I+D</span>
+              <span class="domain-score bottleneck">Score: 10 &middot; Cuello de botella</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="radar-legend">
+        <div class="legend-item">
+          <div class="legend-line" style="background: #2d3a52;"></div>
+          <span>Ecosistema</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background: #8a8f9d; height: 1px; border-top: 1px dashed #8a8f9d;"></div>
+          <span>Referencia (60)</span>
+        </div>
+        <div class="legend-item">
+          <svg width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#8b3a3a" stroke-width="2"/></svg>
+          <span>Cuello de botella</span>
+        </div>
+      </div>
+
+      <div class="radar-footer">
+        <div class="footer-methodology">
+          ANDE Entrepreneurship Ecosystem Diagnostic Toolkit &middot; Fase 1
+        </div>
+        <div class="footer-disclaimer">
+          Diagn&oacute;stico basado en 30 indicadores obtenidos de fuentes p&uacute;blicas (Banco Mundial, INEGI, GEM, UNESCO, entre otros). Los datos reflejan la informaci&oacute;n m&aacute;s reciente disponible al momento de la consulta y pueden estar sujetos a actualizaciones. Este an&aacute;lisis tiene fines informativos y no constituye una evaluaci&oacute;n exhaustiva del ecosistema.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
